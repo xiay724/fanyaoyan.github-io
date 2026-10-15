@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-device="desktop">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="description" content="《豫见真相 · 反谣同行》——河南本土辟谣公益宣传H5：聚焦三农、经济、教育、医疗、文旅，融合路线式、卡片反转式、击碎谣言、拼图等互动玩法，不信谣、不传谣、不造谣。" />
+<title>豫见真相 · 反谣同行 | 河南辟谣公益宣传</title>
+<style>
+:root{
+  --red:#B5272F; --red-2:#8E1F28; --red-3:#6F141B;
+  --gold:#E3B04B; --gold-2:#F2D08A; --gold-3:#C8953B;
+  --ink:#1B2730; --ink-2:#243845; --ink-3:#2E4A5B;
+  --paper:#FAF5EA; --paper-2:#F1E8D6;
+  --jade:#2F7D6D; --jade-2:#245E52;
+  --cream:#FFFDF7; --txt:#2A2A28; --muted:#6c6353;
+  --font-sans:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-kai:"STKaiti","KaiTi","Kaiti SC","FangSong","STFangsong","Songti SC",serif;
+  --i:0; --vh:100vh;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--font-sans);color:var(--txt);background:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+::selection{background:rgba(181,39,47,.25)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.hidden-svg{position:absolute;width:0;height:0;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg .layer{position:absolute;inset:0}
+.bg-glow{background:radial-gradient(120% 90% at 50% -10%, rgba(227,176,75,.20), transparent 60%),linear-gradient(180deg,#16222d 0%, #1b2730 34%, #243845 68%, #2E4A5B 100%);transition:background .8s ease}
+.bg-mountains{transform:translateY(calc(var(--i)*10px))}
+.bg-mountains svg{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto}
+.bg-river{transform:translateY(calc(var(--i)*16px));bottom:0;top:auto;height:26vh;overflow:hidden}
+.bg-river svg{position:absolute;bottom:0;left:-50%;width:200%;height:100%;animation:riverFlow 26s linear infinite}
+.bg-clouds .cloud{position:absolute;opacity:.55;animation:cloudDrift linear infinite}
+.bg-petals .petal{position:absolute;top:-6vh;animation:petalFall linear infinite}
+.bg-pattern{opacity:.5}
+.fx{position:fixed;inset:0;z-index:12;pointer-events:none;overflow:hidden}
+.fx .petal{position:absolute;top:-6vh;animation:petalFall linear infinite}
+@keyframes riverFlow{to{transform:translateX(50%)}}
+@keyframes cloudDrift{from{transform:translateX(-12vw)}to{transform:translateX(112vw)}}
+@keyframes petalFall{0%{transform:translate3d(0,-6vh,0) rotate(0deg)}100%{transform:translate3d(-14vw,110vh,0) rotate(360deg)}}
+#deck{position:fixed;inset:0;z-index:1;transition:transform .78s cubic-bezier(.72,0,.22,1)}
+.slide{height:100vh;height:100dvh;position:relative;overflow:hidden}
+.slide-inner{position:relative;z-index:2;height:100%;max-width:1180px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 28px calc(16px + env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:center;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.slide-inner::-webkit-scrollbar{display:none}
+.slide.dark{color:#f6efe2}
+.slide.dark .muted{color:rgba(246,239,226,.62)}
+.slide.light{color:var(--ink)}
+.slide.light .muted{color:var(--muted)}
+.slide::before{content:"";position:absolute;inset:0;z-index:0}
+.slide.light::before{background:radial-gradient(120% 100% at 50% 0%, rgba(227,176,75,.16), transparent 58%),linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%)}
+.slide.cover::before{background:transparent}
+.slide.cards-red::before{background:radial-gradient(120% 110% at 50% 0%, rgba(227,176,75,.22), transparent 55%),linear-gradient(160deg,#6F141B 0%, #8E1F28 45%, #B5272F 100%)}
+.slide.jade::before{background:radial-gradient(110% 100% at 50% 0%, rgba(47,125,109,.16), transparent 60%),linear-gradient(180deg, var(--paper) 0%, #E7F0EA 100%)}
+.slide.festive::before{background:radial-gradient(120% 120% at 50% 0%, rgba(242,208,138,.5), transparent 55%),linear-gradient(165deg,#6F141B 0%, #B5272F 52%, #C8953B 130%)}
+.slide .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.slide.active .reveal{opacity:1;transform:none}
+.slide.active .reveal.d1{transition-delay:.08s}
+.slide.active .reveal.d2{transition-delay:.18s}
+.slide.active .reveal.d3{transition-delay:.28s}
+.slide.active .reveal.d4{transition-delay:.38s}
+.slide.active .reveal.d5{transition-delay:.48s}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:calc(10px + env(safe-area-inset-top)) 18px 6px;pointer-events:none}
+.brand{display:flex;align-items:center;gap:9px;pointer-events:auto}
+.brand .logo{width:34px;height:34px;border-radius:9px;background:var(--red);color:#fff;display:grid;place-items:center;font-family:var(--font-kai);font-weight:700;font-size:18px;box-shadow:0 3px 10px rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.35)}
+.brand .name{font-family:var(--font-kai);font-weight:700;font-size:16px;line-height:1;letter-spacing:.5px;color:#f6efe2}
+.brand .name small{display:block;font-family:var(--font-sans);font-weight:400;font-size:10px;opacity:.7;margin-top:3px;letter-spacing:1.5px}
+.badge{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;background:rgba(27,39,48,.72);color:#f6efe2;border:1px solid rgba(242,208,138,.5);padding:6px 12px;border-radius:999px;font-size:12px;letter-spacing:.5px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.nav-dots{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:11px}
+.nav-dots button{width:11px;height:11px;border-radius:50%;background:rgba(246,239,226,.35);border:1px solid rgba(246,239,226,.5);padding:0;transition:.3s}
+.nav-dots button.on{background:var(--gold);border-color:var(--gold);transform:scale(1.28);box-shadow:0 0 10px rgba(227,176,75,.8)}
+.progress{position:fixed;top:0;left:0;height:3px;background:rgba(227,176,75,.85);z-index:21;transition:width .5s ease;border-radius:0 2px 2px 0}
+.pageno{position:fixed;right:16px;bottom:14px;z-index:20;font-variant-numeric:tabular-nums;font-size:12px;letter-spacing:2px;opacity:.85;color:#f6efe2;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.hint-desktop{position:fixed;left:16px;bottom:14px;z-index:20;font-size:11px;opacity:.6;color:#f6efe2;letter-spacing:1px}
+.wrap{width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:4px;color:var(--gold-3)}
+.slide.dark .eyebrow,.slide.light .eyebrow{color:var(--red)}
+.eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:currentColor;opacity:.6}
+.htitle{font-family:var(--font-kai);font-weight:700;line-height:1.14;letter-spacing:1px}
+.lead{line-height:1.85;color:inherit;opacity:.92}
+.muted{opacity:.72}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:12px;border:1px solid currentColor;opacity:.9;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;padding:13px 28px;border-radius:999px;font-size:16px;letter-spacing:1px;transition:.25s;background:linear-gradient(180deg,#E3B04B,#C8953B);color:#4a2c06;box-shadow:0 8px 22px rgba(200,149,59,.4)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,149,59,.55)}
+.btn:active{transform:translateY(0)}
+.btn.ghost{background:rgba(255,255,255,.12);color:inherit;border:1px solid rgba(255,255,255,.5);box-shadow:none}
+.btn.ghost:hover{background:rgba(255,255,255,.2)}
+.btn.red{background:linear-gradient(180deg,#C43A46,#8E1F28);color:#fff;box-shadow:0 8px 22px rgba(142,31,40,.45)}
+.btn.sm{padding:9px 18px;font-size:14px}
+.seal{font-family:var(--font-kai);font-weight:700;color:#fff;background:var(--red);border:2px solid rgba(255,255,255,.8);outline:1.5px solid var(--red);border-radius:6px;padding:7px 5px;line-height:1.15;letter-spacing:2px;text-align:center;writing-mode:vertical-rl;box-shadow:0 4px 12px rgba(0,0,0,.3);display:inline-block}
+.icon{width:1em;height:1em;flex:none}
+.cols{display:flex;gap:22px;flex-wrap:wrap}
+.section-head{margin-bottom:22px}
+.cover-inner{justify-content:center;align-items:center;text-align:center;gap:10px}
+.cover-inner .seal{position:absolute;top:16%;right:10%;transform:rotate(6deg);font-size:20px;opacity:.95}
+.cover-badge{margin-bottom:6px}
+.cover-title{font-family:var(--font-kai);font-size:clamp(44px,11vw,120px);line-height:1;letter-spacing:6px;color:#f6efe2;text-shadow:0 4px 24px rgba(0,0,0,.45);background:linear-gradient(180deg,#fff 8%,#F2D08A 55%,#C8953B 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cover-sub{font-size:clamp(15px,2.6vw,24px);letter-spacing:8px;color:#f2d08a;margin-top:6px}
+.cover-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.cover-tags .chip{border-color:rgba(242,208,138,.55);color:#f2d08a}
+.cover-cta{margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.cover-cta .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;letter-spacing:3px;opacity:.7;color:#f6efe2}
+.cover-cta .scroll-hint svg{animation:hintDown 1.6s ease infinite}
+@keyframes hintDown{0%,100%{transform:translateY(0);opacity:.9}50%{transform:translateY(7px);opacity:.4}}
+.cover-deco{position:absolute;left:0;right:0;bottom:0;z-index:1;opacity:.5;pointer-events:none}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:6px 0 4px}
+.stat{background:rgba(255,255,255,.72);border:1px solid rgba(27,39,48,.08);border-radius:16px;padding:18px 16px;box-shadow:0 10px 26px rgba(27,39,48,.08);backdrop-filter:blur(4px)}
+.stat .num{font-family:var(--font-kai);font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--red);line-height:1}
+.stat .num em{font-style:normal;font-size:.5em;margin-left:2px}
+.stat .cap{margin-top:8px;font-size:14px;font-weight:600;color:var(--ink)}
+.stat .src{margin-top:4px;font-size:11px;color:var(--muted);line-height:1.5}
+.chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.chain .node{background:rgba(27,39,48,.06);border-radius:10px;padding:9px 15px;font-size:14px;font-weight:600}
+.chain .node.red{background:var(--red);color:#fff}
+.chain .arrow{color:var(--red);font-weight:700}
+.route-body{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;align-items:stretch;margin-top:4px}
+.map-box{position:relative;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.6);border:1px solid rgba(27,39,48,.08);box-shadow:0 14px 34px rgba(27,39,48,.12)}
+.map-box svg{width:100%;height:auto;display:block}
+.map-tip{position:absolute;left:10px;top:10px;font-size:11px;color:var(--muted);background:rgba(255,255,255,.8);padding:4px 9px;border-radius:999px}
+.node{cursor:pointer}
+.node circle.hit{fill:transparent;stroke:none}
+.node .ring{fill:var(--red);transition:.25s;transform-origin:center}
+.node:hover .ring,.node.on .ring{fill:var(--gold);stroke:#fff;stroke-width:2}
+.node .lbl{font-size:13px;font-weight:700;fill:var(--ink)}
+.node .no{font-size:10px;font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.route-path{fill:none;stroke:var(--red);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+.route-path.anim{stroke-dasharray:1600;stroke-dashoffset:1600}
+.slide.active .route-path.anim{animation:drawRoute 2.4s ease forwards}
+@keyframes drawRoute{to{stroke-dashoffset:0}}
+.detail-panel{background:rgba(255,255,255,.82);border:1px solid rgba(27,39,48,.08);border-radius:18px;padding:20px;box-shadow:0 14px 34px rgba(27,39,48,.1);display:flex;flex-direction:column;gap:12px;min-height:260px}
+.detail-panel .d-tag{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.detail-panel .d-city{font-family:var(--font-kai);font-size:24px;font-weight:700;color:var(--ink)}
+.detail-panel h4{font-size:13px;letter-spacing:2px;color:var(--red);font-weight:700}
+.rumor-q{background:#FBEFEA;border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:10px 13px;font-size:14px;line-height:1.7}
+.truth-a{background:#EAF3EE;border-left:4px solid var(--jade);border-radius:0 10px 10px 0;padding:10px 13px;font-size:14px;line-height:1.7}
+.truth-a b{color:var(--jade-2)}
+.point-tip{font-size:12px;color:var(--muted);line-height:1.6}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.legend .start i{background:var(--jade)}
+.legend .stop i{background:var(--red)}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:4px}
+.flip{perspective:1100px;height:230px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.1,.2,1)}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:18px;display:flex;flex-direction:column;justify-content:center;gap:10px;box-shadow:0 14px 34px rgba(27,39,48,.16);overflow:hidden}
+.flip-front{background:linear-gradient(160deg,#8E1F28,#B5272F);color:#fff}
+.flip-back{background:linear-gradient(160deg,#F6EFE2,#F1E8D6);color:var(--ink);transform:rotateY(180deg);text-align:left}
+.flip .dom{font-size:12px;letter-spacing:2px;color:var(--gold-2);font-weight:700}
+.flip .q{font-size:16px;line-height:1.55;font-weight:700}
+.flip .hint{font-size:12px;color:rgba(255,255,255,.75);margin-top:auto}
+.flip-back .dom2{font-size:11px;letter-spacing:2px;color:var(--jade);font-weight:700}
+.flip-back .a{font-size:13.5px;line-height:1.65}
+.flip-back .a b{color:var(--red)}
+.flip-back .tip{margin-top:auto;font-size:11.5px;color:var(--muted);border-top:1px dashed rgba(27,39,48,.2);padding-top:8px}
+.flip .flip-mark{position:absolute;right:10px;top:10px;font-size:11px;opacity:.75;letter-spacing:1px}
+.game-hud{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0}
+.hud-box{background:rgba(255,255,255,.75);border-radius:12px;padding:8px 15px;font-weight:700;display:flex;align-items:center;gap:8px;box-shadow:0 8px 18px rgba(27,39,48,.08)}
+.hud-box .k{font-size:12px;font-weight:400;color:var(--muted)}
+.hud-box .v{font-size:20px;color:var(--red);font-variant-numeric:tabular-nums}
+.hud-box .v.green{color:var(--jade)}
+#arena{position:relative;height:min(46vh,420px);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#DFF0E9,#F6F1E6);border:1px solid rgba(27,39,48,.08);box-shadow:inset 0 4px 20px rgba(27,39,48,.08)}
+.bubble{position:absolute;bottom:-80px;border-radius:16px;padding:12px 16px;font-size:15px;font-weight:700;color:#fff;background:linear-gradient(180deg,rgba(142,31,40,.96),rgba(181,39,47,.96));box-shadow:0 8px 22px rgba(142,31,40,.45);cursor:pointer;animation:bubbleUp linear forwards;max-width:64%;user-select:none;white-space:nowrap}
+.bubble::after{content:"点我击碎";position:absolute;right:12px;bottom:6px;font-size:9px;font-weight:400;opacity:.7}
+.bubble.burst{animation:burst .32s ease forwards}
+@keyframes bubbleUp{to{transform:translateY(calc(-1*(46vh + 420px)))}}
+@keyframes burst{0%{transform:scale(1);opacity:1}100%{transform:scale(.15);opacity:0}}
+.arena-overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(27,39,48,.35);backdrop-filter:blur(3px);z-index:5}
+.arena-overlay .card{background:#fff;border-radius:18px;padding:28px 30px;text-align:center;max-width:84%;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.arena-overlay h3{font-family:var(--font-kai);font-size:26px;margin-bottom:8px}
+.arena-overlay p{font-size:14px;color:var(--muted);line-height:1.7}
+.arena-overlay .score-big{font-family:var(--font-kai);font-size:44px;color:var(--red);margin:6px 0}
+.toast-wrap{position:fixed;left:50%;bottom:12vh;transform:translateX(-50%);z-index:40;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:min(92vw,420px)}
+.toast{background:rgba(27,39,48,.94);color:#f6efe2;border-radius:12px;padding:11px 16px;font-size:13.5px;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.35);animation:toastIn .3s ease;max-width:100%}
+.toast b{color:var(--gold-2)}
+.toast.good{background:rgba(36,94,82,.96)}
+@keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.puzzle-body{display:grid;grid-template-columns:.82fr 1.18fr;gap:24px;align-items:center}
+.puzzle-stage{display:flex;flex-direction:column;align-items:center;gap:12px}
+#puzzle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:14px;background:linear-gradient(160deg,#8E1F28,#B5272F);box-shadow:0 16px 40px rgba(142,31,40,.4);width:min(78vw,320px);height:min(78vw,320px)}
+#puzzle-grid .tile{background-size:300% 300%;border-radius:7px;cursor:pointer;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .16s ease,opacity .16s ease}
+#puzzle-grid .tile:active{transform:scale(.96)}
+#puzzle-grid .tile.blank{background:#6F141B;box-shadow:none;cursor:default;opacity:.55}
+.puzzle-meta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.puzzle-meta .hud-box{padding:6px 13px}
+.puzzle-side h3{font-family:var(--font-kai);font-size:24px;color:var(--ink)}
+.puzzle-side .goal{font-size:14px;line-height:1.8;color:var(--muted)}
+.puzzle-side ol{margin:8px 0 0 18px;font-size:14px;line-height:2;color:var(--ink)}
+.puzzle-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+#puzzle-preview{width:110px;height:110px;border-radius:12px;box-shadow:0 8px 22px rgba(27,39,48,.2);border:3px solid #fff}
+.tips-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:6px}
+.tip{background:rgba(255,255,255,.72);border-radius:16px;padding:20px 16px;box-shadow:0 12px 30px rgba(27,39,48,.1);border:1px solid rgba(27,39,48,.06)}
+.tip .t-ico{width:52px;height:52px;border-radius:14px;background:linear-gradient(160deg,#B5272F,#8E1F28);color:#fff;display:grid;place-items:center;margin-bottom:12px}
+.tip .t-no{font-family:var(--font-kai);font-size:15px;color:var(--gold-3);font-weight:700;letter-spacing:1px}
+.tip h4{font-size:16px;margin:4px 0 7px;color:var(--ink)}
+.tip p{font-size:12.5px;line-height:1.7;color:var(--muted)}
+.report-strip{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;background:rgba(27,39,48,.06);border-radius:14px;padding:13px 16px}
+.report-strip .big{font-family:var(--font-kai);font-size:20px;color:var(--red);font-weight:700}
+.report-strip .desc{font-size:12.5px;color:var(--muted);line-height:1.6;flex:1;min-width:200px}
+.end-inner{align-items:center;text-align:center;gap:12px}
+.end-title{font-family:var(--font-kai);font-size:clamp(30px,6vw,58px);color:#f6efe2;letter-spacing:5px;text-shadow:0 4px 20px rgba(0,0,0,.4)}
+.pledge-card{background:rgba(255,255,255,.96);color:var(--ink);border-radius:20px;padding:26px 28px;max-width:560px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.35);text-align:left}
+.pledge-card .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pledge-card input{flex:1;min-width:160px;border:1px solid rgba(27,39,48,.16);border-radius:12px;padding:11px 14px;font-size:15px;font-family:inherit;background:var(--paper)}
+.pledge-card input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(181,39,47,.15)}
+.pledge-text{font-family:var(--font-kai);font-size:18px;line-height:1.9;margin:16px 0 4px;color:var(--ink)}
+.pledge-text b{color:var(--red)}
+.pledge-count{font-size:12px;color:var(--muted);margin-bottom:12px}
+.cert{background:linear-gradient(180deg,#FBF6EA,#F1E8D6);border:2px solid var(--gold);border-radius:14px;padding:20px 22px;text-align:center;position:relative}
+.cert .c-seal{position:absolute;right:16px;bottom:16px}
+.cert .c-title{font-family:var(--font-kai);font-size:20px;color:var(--red);letter-spacing:3px}
+.cert .c-name{font-family:var(--font-kai);font-size:28px;margin:10px 0 4px}
+.cert .c-text{font-size:14px;line-height:2;color:var(--ink)}
+.cert .c-no{font-size:11px;color:var(--muted);margin-top:10px;letter-spacing:1px}
+.sources{background:rgba(0,0,0,.28);color:#f6efe2;border-radius:12px;padding:12px 16px;font-size:11.5px;line-height:1.7;max-width:560px;text-align:left;opacity:.92}
+.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:rgba(10,16,22,.55);backdrop-filter:blur(4px)}
+.modal.show{display:grid}
+.modal-box{background:var(--cream);color:var(--ink);border-radius:20px;max-width:520px;width:100%;padding:26px 26px 22px;box-shadow:0 30px 80px rgba(0,0,0,.5);max-height:88vh;overflow-y:auto;position:relative;animation:toastIn .3s ease}
+.modal-close{position:absolute;right:14px;top:12px;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);font-size:20px;line-height:1;display:grid;place-items:center;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.2);border:1px solid rgba(27,39,48,.12)}
+.landscape{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:rgba(10,16,22,.9);color:#f6efe2;text-align:center;padding:20px}
+.landscape .ico{width:64px;height:64px;margin:0 auto 14px;color:var(--gold)}
+.landscape.show{display:grid}
+@media (max-width:1024px){
+  .route-body{grid-template-columns:1fr}
+  .detail-panel{min-height:0}
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .tips-grid{grid-template-columns:repeat(3,1fr)}
+  .puzzle-body{grid-template-columns:1fr;gap:16px}
+  .puzzle-side{text-align:center}
+  .puzzle-side ol{display:inline-block;text-align:left}
+}
+@media (max-width:820px){
+  .nav-dots{display:none}
+  .hint-desktop{display:none}
+  .slide-inner{padding:calc(12px + env(safe-area-inset-top)) 18px calc(14px + env(safe-area-inset-bottom))}
+  .stat-grid{grid-template-columns:1fr;gap:10px}
+  .stat{padding:13px 14px;display:flex;align-items:center;gap:14px}
+  .stat .num{font-size:30px;min-width:96px}
+  .stat .cap{margin-top:0;font-size:13px}
+  .stat .src{margin-top:2px}
+  .chain{justify-content:flex-start}
+  .cards-grid{grid-template-columns:1fr}
+  .flip{height:200px}
+  .tips-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .tip{padding:16px 13px}
+  .tip .t-ico{width:44px;height:44px}
+  .bubble{font-size:13.5px;padding:10px 14px}
+  .bubble::after{display:none}
+  .pageno{right:12px;bottom:10px}
+  .brand .name{font-size:14px}
+}
+@media (max-width:480px){
+  .tips-grid{grid-template-columns:1fr}
+  .cover-tags{gap:7px}
+  .cover-tags .chip{font-size:11px;padding:3px 9px}
+  .flip{height:190px}
+  .pledge-card{padding:20px 18px}
+}
+html[data-device="desktop"] .flip:hover .flip-inner{transform:rotateY(180deg)}
+html[data-device="desktop"] .node{cursor:pointer}
+html[data-device="tablet"] .node .hit{transform:scale(1.6)}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  #deck{transition:none}
+}
+</style>
+<style id="visual-polish">
+:root{
+  --gold:#E3B04B; --gold-2:#F2D08A; --gold-3:#C8953B;
+  --red:#B5272F; --red-2:#8E1F28; --red-3:#6F141B;
+  --jade:#2F7D6D; --jade-2:#245E52; --sky:#527F94;
+  --ink:#1B2730; --ink-2:#243845; --ink-3:#2E4A5B;
+  --paper:#FAF5EA; --paper-2:#F1E8D6; --cream:#FFFDF7;
+  --ease-spring:cubic-bezier(.22,1,.36,1);
+}
+html,body{background:#0b141c}
+body{overflow:hidden}
+.bg::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;opacity:.5;mix-blend-mode:overlay;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1.2px);background-size:20px 20px}
+.bg-glow{background:radial-gradient(120% 90% at 50% -10%,rgba(227,176,75,.24),transparent 58%),radial-gradient(90% 70% at 88% 12%,rgba(181,39,47,.22),transparent 55%),radial-gradient(110% 90% at 8% 88%,rgba(47,125,109,.18),transparent 60%),linear-gradient(180deg,#0d171f 0%,#172430 36%,#243845 70%,#2e4a5b 100%)}
+.bg-river{height:24vh;opacity:.9}
+.bg-river::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(11,20,28,.35))}
+.topbar{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.brand .logo{background:linear-gradient(145deg,#d6424c,#8e1f28);box-shadow:0 6px 18px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.28);border-color:rgba(255,255,255,.5)}
+.brand .name{color:#fff7ea;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.brand .name small{color:var(--gold-2);opacity:.85}
+.slide::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.32;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.2px);background-size:24px 24px;mix-blend-mode:soft-light}
+.slide.cover::before{background:radial-gradient(42% 32% at 18% 20%,rgba(227,176,75,.24),transparent 68%),radial-gradient(52% 40% at 82% 18%,rgba(181,39,47,.36),transparent 70%),radial-gradient(64% 46% at 50% 116%,rgba(47,125,109,.22),transparent 66%),linear-gradient(180deg,rgba(9,16,23,.04),rgba(9,16,23,.68))}
+.slide.cards-red::before{background:radial-gradient(120% 110% at 50% 0%,rgba(227,176,75,.25),transparent 55%),radial-gradient(60% 42% at 90% 100%,rgba(0,0,0,.32),transparent 68%),linear-gradient(160deg,#6f141b 0%,#8e1f28 45%,#b5272f 100%)}
+.slide.jade::before{background:radial-gradient(110% 100% at 50% 0%,rgba(47,125,109,.18),transparent 60%),radial-gradient(70% 44% at 12% 100%,rgba(227,176,75,.18),transparent 65%),linear-gradient(180deg,#faf5ea 0%,#e7f0ea 100%)}
+.slide.festive::before{background:radial-gradient(120% 120% at 50% 0%,rgba(242,208,138,.52),transparent 54%),radial-gradient(64% 42% at 12% 100%,rgba(181,39,47,.38),transparent 66%),linear-gradient(165deg,#6f141b 0%,#b5272f 52%,#c8953b 132%)}
+.cover-inner::before,.cover-inner::after{content:"";position:absolute;top:50%;left:50%;border-radius:50%;pointer-events:none;z-index:0}
+.cover-inner::before{width:min(82vw,680px);height:min(82vw,680px);transform:translate(-50%,-50%);border:1px solid rgba(242,208,138,.16);box-shadow:0 0 0 26px rgba(242,208,138,.025),0 0 0 52px rgba(242,208,138,.018)}
+.cover-inner::after{width:min(58vw,480px);height:min(58vw,480px);transform:translate(-50%,-50%);border:1px dashed rgba(255,255,255,.08);opacity:.7}
+.cover-inner>*{position:relative;z-index:1}
+.cover-badge{background:rgba(15,26,35,.42);border:1px solid rgba(242,208,138,.5);padding:6px 16px;border-radius:999px;color:var(--gold-2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.cover-title{font-size:clamp(48px,12vw,132px);letter-spacing:8px;background:linear-gradient(105deg,#fff 0%,#f8e4b4 22%,#d5a148 45%,#fff1cf 60%,#c8953b 78%,#fff 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 8px 18px rgba(0,0,0,.32));animation:coverShine 8s linear infinite}
+.cover-sub{color:#f8e4b4;text-shadow:0 0 22px rgba(227,176,75,.45);letter-spacing:10px}
+.cover-tags .chip{background:rgba(181,39,47,.26);border-color:rgba(242,208,138,.62);color:#fff7ea;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);padding:5px 13px}
+.cover-cta .btn{position:relative;overflow:hidden;min-width:190px;padding:15px 34px;font-size:17px;letter-spacing:2px;background:linear-gradient(180deg,#f2d08a,#c8953b);box-shadow:0 12px 30px rgba(200,149,59,.5),inset 0 1px 0 rgba(255,255,255,.6)}
+.cover-cta .btn::after{content:"";position:absolute;top:-20%;left:-70%;width:36%;height:140%;transform:skewX(-24deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:btnSheen 3.6s ease-in-out infinite}
+.cover-cta .scroll-hint{color:#f6efe2}
+.cover-deco{opacity:.7}
+.cover-deco svg{filter:drop-shadow(0 8px 12px rgba(0,0,0,.4));animation:floatIcon 4.4s ease-in-out infinite}
+.cover-deco svg:nth-child(2){animation-delay:-.7s}
+.cover-deco svg:nth-child(3){animation-delay:-1.4s}
+.cover-deco svg:nth-child(4){animation-delay:-2.1s}
+.cover-deco svg:nth-child(5){animation-delay:-2.8s}
+.section-head{position:relative;padding-bottom:14px;margin-bottom:22px}
+.section-head::after{content:"";position:absolute;left:0;bottom:0;width:76px;height:3px;border-radius:999px;background:linear-gradient(90deg,var(--red),var(--gold),var(--jade));box-shadow:0 4px 12px rgba(181,39,47,.28)}
+.slide.dark .section-head::after{background:linear-gradient(90deg,var(--gold-2),var(--gold),var(--jade))}
+.htitle{letter-spacing:0;text-shadow:0 2px 14px rgba(0,0,0,.08)}
+.slide.dark .htitle{text-shadow:0 4px 18px rgba(0,0,0,.28)}
+.stat{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,250,238,.74));border:1px solid rgba(255,255,255,.82);border-radius:20px;box-shadow:0 18px 38px rgba(27,39,48,.13),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .3s var(--ease-spring),box-shadow .3s ease}
+.stat::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),var(--gold),var(--jade));border-radius:20px 20px 0 0}
+.stat::after{content:"";position:absolute;right:-32px;top:-32px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(227,176,75,.18),transparent 70%);pointer-events:none}
+.stat:hover{transform:translateY(-5px);box-shadow:0 26px 50px rgba(27,39,48,.2),inset 0 1px 0 rgba(255,255,255,.95)}
+.stat .num{background:linear-gradient(135deg,#c43a46,#8e1f28);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 3px rgba(142,31,40,.12))}
+.chain .node{background:rgba(27,39,48,.07);border:1px solid rgba(27,39,48,.04);border-radius:12px;box-shadow:0 6px 16px rgba(27,39,48,.06)}
+.chain .node.red{background:linear-gradient(145deg,#c43a46,#8e1f28);box-shadow:0 8px 18px rgba(142,31,40,.25)}
+.map-box{background:linear-gradient(160deg,rgba(255,255,255,.86),rgba(250,244,232,.6));border:1px solid rgba(255,255,255,.78);border-radius:22px;box-shadow:0 28px 64px rgba(27,39,48,.2),0 0 0 5px rgba(255,255,255,.18),inset 0 1px 0 rgba(255,255,255,.8)}
+.map-box svg{filter:drop-shadow(0 10px 18px rgba(27,39,48,.12))}
+.map-tip{background:rgba(255,255,255,.9);color:var(--red);border:1px solid rgba(181,39,47,.18);font-weight:700;box-shadow:0 4px 12px rgba(27,39,48,.08)}
+.node .ring{filter:drop-shadow(0 0 5px rgba(181,39,47,.85));animation:pingNode 2.6s ease-in-out infinite}
+.node:hover .ring,.node.on .ring{fill:var(--gold);stroke:#fff;stroke-width:2.5;filter:drop-shadow(0 0 8px rgba(227,176,75,.9));animation:none}
+.node .lbl{fill:#243845;font-size:14px;letter-spacing:0}
+.detail-panel{background:linear-gradient(165deg,rgba(255,255,255,.97),rgba(251,246,235,.88));border:1px solid rgba(255,255,255,.8);border-top:5px solid var(--red);border-radius:22px;padding:22px;box-shadow:0 24px 56px rgba(27,39,48,.17),inset 0 1px 0 rgba(255,255,255,.9)}
+.detail-panel .d-city{color:var(--red);text-shadow:0 2px 10px rgba(181,39,47,.12)}
+.rumor-q,.truth-a{position:relative;border-radius:12px;padding:12px 14px;box-shadow:0 8px 18px rgba(27,39,48,.06)}
+.rumor-q{background:#fff0eb;border-left:4px solid var(--red)}
+.truth-a{background:#edf7f2;border-left:4px solid var(--jade)}
+.cards-grid{gap:18px;margin-top:8px}
+.flip{height:258px;transition:transform .3s var(--ease-spring)}
+.flip:hover{transform:translateY(-5px)}
+.flip-face{border:1px solid rgba(255,255,255,.28);border-radius:22px;box-shadow:0 20px 44px rgba(27,39,48,.22),inset 0 1px 0 rgba(255,255,255,.18)}
+.flip-front{background:radial-gradient(120% 120% at 12% 10%,rgba(255,255,255,.18),transparent 38%),linear-gradient(155deg,#a12731,#b5272f 54%,#70131d)}
+.flip-front::after{content:"";position:absolute;right:-42px;bottom:-42px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(242,208,138,.25),transparent 70%);pointer-events:none}
+.flip-front .dom{color:#ffe1a2;text-shadow:0 1px 4px rgba(0,0,0,.2)}
+.flip-front .q{font-size:17px;letter-spacing:0}
+.flip-front .hint{color:rgba(255,255,255,.82)}
+.flip-back{background:radial-gradient(120% 120% at 85% 10%,rgba(47,125,109,.10),transparent 45%),linear-gradient(155deg,#fffdf6,#f3ead7);border-color:rgba(255,255,255,.72)}
+.flip-back .a{font-size:14px}
+.flip-mark{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:3px 8px;border-radius:999px}
+.game-hud{gap:12px}
+.hud-box{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(251,246,235,.78));border:1px solid rgba(255,255,255,.9);border-radius:14px;box-shadow:0 10px 24px rgba(27,39,48,.1);padding:9px 17px}
+.hud-box .v{color:var(--red);font-size:22px}
+#arena{height:min(48vh,440px);border-radius:22px;background:radial-gradient(80% 78% at 50% 0%,rgba(255,255,255,.7),transparent 64%),linear-gradient(180deg,#dcefe7,#f9f4e8);border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 54px rgba(27,39,48,.17),inset 0 2px 12px rgba(255,255,255,.55)}
+.bubble{border:1px solid rgba(255,255,255,.3);border-radius:18px;background:linear-gradient(180deg,#c43a46,#9a2330);box-shadow:0 12px 30px rgba(142,31,40,.5),inset 0 1px 0 rgba(255,255,255,.22);padding:13px 18px;font-size:16px}
+.bubble::before{content:"!";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.16);color:#ffe1a2;font-size:14px;font-weight:900;display:grid;place-items:center}
+.bubble{text-indent:0;padding-left:46px}
+.bubble::after{color:rgba(255,255,255,.66)}
+.arena-overlay{background:rgba(12,22,30,.44);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.arena-overlay .card{background:linear-gradient(160deg,#fffdf7,#f6ecda);border:1px solid rgba(255,255,255,.8);border-radius:22px;box-shadow:0 30px 70px rgba(0,0,0,.34)}
+.arena-overlay h3{color:var(--red)}
+.puzzle-body{gap:28px}
+.puzzle-stage{gap:14px}
+#puzzle-grid{border-radius:18px;padding:5px;gap:5px;background:linear-gradient(160deg,#a22531,#b5272f 52%,#6f141b);box-shadow:0 22px 48px rgba(142,31,40,.45),inset 0 1px 0 rgba(255,255,255,.18)}
+#puzzle-grid .tile{border-radius:9px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),0 2px 5px rgba(0,0,0,.08)}
+#puzzle-grid .tile.blank{background:#6f141b;opacity:.48}
+#puzzle-preview{border-radius:16px;border:3px solid #fff;box-shadow:0 12px 28px rgba(27,39,48,.22)}
+.puzzle-side h3{color:var(--red)}
+.puzzle-actions .btn{min-width:116px}
+.tips-grid{gap:16px;margin-top:10px}
+.tip{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(255,249,237,.72));border:1px solid rgba(255,255,255,.82);border-radius:18px;box-shadow:0 16px 34px rgba(27,39,48,.12),inset 0 1px 0 rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .3s var(--ease-spring),box-shadow .3s ease}
+.tip::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(181,39,47,.13),transparent 70%);pointer-events:none}
+.tip:hover{transform:translateY(-5px);box-shadow:0 24px 46px rgba(27,39,48,.19),inset 0 1px 0 rgba(255,255,255,.92)}
+.tip .t-ico{width:56px;height:56px;border-radius:16px;box-shadow:0 10px 22px rgba(27,39,48,.16),inset 0 1px 0 rgba(255,255,255,.22)}
+.tip:nth-child(2) .t-ico{background:linear-gradient(160deg,#3a9482,#245e52)}
+.tip:nth-child(3) .t-ico{background:linear-gradient(160deg,#e3b04b,#b97a24)}
+.tip:nth-child(4) .t-ico{background:linear-gradient(160deg,#527f94,#365b6d)}
+.tip:nth-child(5) .t-ico{background:linear-gradient(160deg,#b5272f,#6f141b)}
+.tip .t-no{color:var(--red);font-size:16px}
+.tip h4{font-size:18px}
+.tip p{font-size:13px}
+.report-strip{background:rgba(255,255,255,.09);border:1px solid rgba(242,208,138,.28);border-radius:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 16px 32px rgba(0,0,0,.14)}
+.report-strip .big{color:var(--gold-2)}
+.report-strip .desc{color:#f6efe2}
+.end-title{background:linear-gradient(120deg,#fff 0%,#f2d08a 50%,#c8953b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 16px rgba(0,0,0,.28))}
+.pledge-card{background:linear-gradient(160deg,rgba(255,255,255,.98),rgba(251,245,233,.94));border:1px solid rgba(255,255,255,.84);border-radius:24px;padding:30px 32px;box-shadow:0 30px 70px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.95)}
+.pledge-card input{background:#fff;border:1px solid rgba(27,39,48,.14);border-radius:14px;box-shadow:inset 0 1px 3px rgba(27,39,48,.06)}
+.pledge-card .btn{padding:11px 20px}
+.sources{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:14px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal-box{background:linear-gradient(180deg,#fffdf7,#f5ecd9);border:1px solid rgba(255,255,255,.85);border-radius:24px;box-shadow:0 34px 90px rgba(0,0,0,.5)}
+.cert{background:linear-gradient(180deg,#fdf8ec,#f1e6cf);border:2px solid var(--gold);outline:5px double rgba(200,149,59,.28);border-radius:16px;box-shadow:inset 0 0 0 1px rgba(200,149,59,.18)}
+.cert .c-title{color:var(--red)}
+.cert .c-seal{transform:rotate(-5deg);opacity:.92}
+.modal-close{background:linear-gradient(180deg,#fff,#f0e7d3);color:var(--red)}
+.btn{letter-spacing:0;transition:transform .25s var(--ease-spring),box-shadow .25s ease,background .25s ease}
+.btn:hover{transform:translateY(-3px)}
+.btn.red{background:linear-gradient(180deg,#d6424c,#8e1f28);box-shadow:0 12px 28px rgba(142,31,40,.46),inset 0 1px 0 rgba(255,255,255,.22)}
+@keyframes coverShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes btnSheen{0%,62%{left:-70%}100%{left:120%}}
+@keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes pingNode{0%,100%{opacity:1}50%{opacity:.42}}
+@media (max-width:1024px){
+  .flip{height:240px}
+}
+@media (max-width:820px){
+  .cover-inner::before{width:min(92vw,540px);height:min(92vw,540px)}
+  .cover-inner::after{width:min(66vw,390px);height:min(66vw,390px)}
+  .cover-title{letter-spacing:5px}
+  .cover-sub{letter-spacing:6px}
+  .section-head{padding-bottom:10px;margin-bottom:16px}
+  .stat{display:block}
+  .flip{height:216px}
+  .flip-front .q{font-size:15.5px}
+  .flip-back .a{font-size:13px}
+  .bubble{font-size:13.5px;padding:10px 14px;padding-left:40px}
+  .bubble::before{left:9px;width:20px;height:20px;font-size:12px}
+  .tip .t-ico{width:46px;height:46px}
+  .pledge-card{padding:22px 20px}
+}
+@media (max-width:480px){
+  .cover-badge{font-size:11px;padding:5px 12px;letter-spacing:3px}
+  .cover-cta .btn{min-width:168px;padding:13px 28px}
+  .flip{height:196px}
+  .flip-front .q{font-size:15px}
+  .detail-panel{padding:18px}
+  #puzzle-grid{width:min(88vw,340px);height:min(88vw,340px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cover-title,.cover-deco svg,.bubble,.node .ring{animation:none!important}
+}
+</style>
+</head>
+<body>
+<noscript><div style="position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#1B2730;color:#f6efe2;padding:24px;text-align:center;font-family:sans-serif"><div><h2 style="font-size:22px;margin-bottom:8px">请启用 JavaScript</h2><p style="font-size:14px;opacity:.8">本 H5 需要 JavaScript 才能正常浏览，请在浏览器设置中开启后刷新。</p></div></div></noscript>
+<!-- ===== SVG 图标库 ===== -->
+<svg class="hidden-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="s-peony" viewBox="0 0 64 64">
+    <g fill="#E3B04B"><ellipse cx="32" cy="17" rx="10" ry="14"/><ellipse cx="32" cy="17" rx="10" ry="14" transform="rotate(72 32 32)"/><ellipse cx="32" cy="17" rx="10" ry="14" transform="rotate(144 32 32)"/><ellipse cx="32" cy="17" rx="10" ry="14" transform="rotate(216 32 32)"/><ellipse cx="32" cy="17" rx="10" ry="14" transform="rotate(288 32 32)"/></g>
+    <g fill="#B5272F"><ellipse cx="32" cy="24" rx="7" ry="9" transform="rotate(36 32 32)"/><ellipse cx="32" cy="24" rx="7" ry="9" transform="rotate(108 32 32)"/><ellipse cx="32" cy="24" rx="7" ry="9" transform="rotate(180 32 32)"/><ellipse cx="32" cy="24" rx="7" ry="9" transform="rotate(252 32 32)"/><ellipse cx="32" cy="24" rx="7" ry="9" transform="rotate(324 32 32)"/></g>
+    <circle cx="32" cy="32" r="6" fill="#F2D08A"/>
+  </symbol>
+  <symbol id="s-petal" viewBox="0 0 20 24"><path d="M10 2c5 3 7 8 7 13 0 4-3 7-7 7s-7-3-7-7c0-5 2-10 7-13z" fill="currentColor"/></symbol>
+  <symbol id="s-cloud" viewBox="0 0 64 40"><path fill="currentColor" d="M16 38h30a9 9 0 0 0 1-18 13 13 0 0 0-25-4A10 10 0 0 0 16 38z"/></symbol>
+  <symbol id="s-buddha" viewBox="0 0 64 64"><path fill="currentColor" d="M32 4c-8 0-14 6-14 14 0 3.5 1.3 6.7 3.4 9.2V46c0 3 2.2 5 5 5h11.2c2.8 0 5-2 5-5V27.2C44.7 24.7 46 21.5 46 18c0-8-6-14-14-14z"/><path fill="currentColor" d="M32 0c-1.4 0-2.4 1-2.4 2.4V4h4.8V2.4C34.4 1 33.4 0 32 0z"/></symbol>
+  <symbol id="s-pagoda" viewBox="0 0 64 64"><path fill="currentColor" d="M12 56h40v-4H12zm2-6h36v-4H14zm2-6h32v-4H16zm2-6h28v-4H18zm3-6h22v-4H21zm5-6h12v-7H26z"/></symbol>
+  <symbol id="s-opera" viewBox="0 0 64 64"><g><path d="M32 4c4 3 7 8 7 14H25c0-6 3-11 7-14z" fill="currentColor"/><ellipse cx="32" cy="34" rx="21" ry="24" fill="currentColor"/><path d="M20 30c3-4 9-6 13-5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M44 30c-3-4-9-6-13-5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M26 44c4 3 8 3 12 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></g></symbol>
+  <symbol id="s-taiji" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="currentColor"/><path d="M32 2a30 30 0 0 0 0 60 15 15 0 0 1 0-30 15 15 0 0 0 0-30z" fill="#fff"/><circle cx="32" cy="17" r="5" fill="currentColor"/><circle cx="32" cy="47" r="5" fill="#fff"/></symbol>
+  <symbol id="s-wheat" viewBox="0 0 64 64"><path d="M32 58V20" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/><g fill="currentColor"><path d="M32 24c-7-3-9-8-9-13 7 3 9 8 9 13z"/><path d="M32 24c7-3 9-8 9-13-7 3-9 8-9 13z"/><path d="M32 33c-7-3-9-8-9-13 7 3 9 8 9 13z"/><path d="M32 33c7-3 9-8 9-13-7 3-9 8-9 13z"/><path d="M32 42c-7-3-9-8-9-13 7 3 9 8 9 13z"/><path d="M32 42c7-3 9-8 9-13-7 3-9 8-9 13z"/></g></symbol>
+  <symbol id="s-coin" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" stroke-width="4"/><rect x="23" y="23" width="18" height="18" fill="currentColor"/></symbol>
+  <symbol id="s-book" viewBox="0 0 64 64"><path d="M14 14h36v36H14z" fill="none" stroke="currentColor" stroke-width="3.4"/><path d="M32 14v36" stroke="currentColor" stroke-width="2.2"/></symbol>
+  <symbol id="s-med" viewBox="0 0 64 64"><g fill="currentColor"><circle cx="32" cy="18" r="12"/><circle cx="32" cy="42" r="17"/></g><path d="M26 42h12M32 36v12" stroke="#fff" stroke-width="4.4" stroke-linecap="round"/></symbol>
+  <symbol id="s-tower" viewBox="0 0 64 64"><path d="M20 12h24l-3 12H23z" fill="currentColor"/><path d="M24 24h16v4H24zm-3 6h22v24H17z" fill="currentColor"/><path d="M24 44h16" stroke="#fff" stroke-width="3"/></symbol>
+  <symbol id="s-check" viewBox="0 0 64 64"><path d="M14 34l12 12 24-28" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="s-flag" viewBox="0 0 64 64"><path d="M16 8v48M16 12h30l-8 11 8 11H16" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></symbol>
+  <symbol id="s-pin" viewBox="0 0 64 64"><path d="M32 56S14 40 14 26a18 18 0 0 1 36 0c0 14-18 30-18 30z" fill="currentColor"/><circle cx="32" cy="26" r="7" fill="#fff"/></symbol>
+  <symbol id="s-share" viewBox="0 0 64 64"><circle cx="46" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="46" cy="48" r="8" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="16" cy="32" r="8" fill="none" stroke="currentColor" stroke-width="4"/><path d="M23 28l18-10M23 36l18 10" stroke="currentColor" stroke-width="4"/></symbol>
+  <symbol id="s-reset" viewBox="0 0 64 64"><path d="M50 32a18 18 0 1 1-5-13" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M52 8v12H40" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="s-down" viewBox="0 0 64 64"><path d="M32 12v40M18 40l14 14 14-14" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="s-search" viewBox="0 0 64 64"><circle cx="28" cy="28" r="16" fill="none" stroke="currentColor" stroke-width="5"/><path d="M40 40l12 12" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></symbol>
+  <symbol id="s-eye" viewBox="0 0 64 64"><path d="M4 32s10-16 28-16 28 16 28 16-10 16-28 16S4 32 4 32z" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="32" r="9" fill="none" stroke="currentColor" stroke-width="4"/></symbol>
+  <symbol id="s-calc" viewBox="0 0 64 64"><rect x="14" y="10" width="36" height="44" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><path d="M22 21h20M22 33h6M36 33h6M22 43h6M36 43h6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+  <symbol id="s-shield" viewBox="0 0 64 64"><path d="M32 6l22 8v14c0 14-9 24-22 30C19 52 10 42 10 28V14z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M25 30h14M25 38h14" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+  <symbol id="s-bell" viewBox="0 0 64 64"><path d="M12 36h12l14 12V14L24 26H12z" fill="currentColor"/><path d="M42 22c4 4 4 14 0 18M48 16c7 8 7 22 0 30" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- ===== 河南文化背景层 ===== -->
+<div class="bg" aria-hidden="true">
+  <div class="layer bg-glow"></div>
+  <div class="layer bg-mountains">
+    <svg viewBox="0 0 1440 300" preserveAspectRatio="none">
+      <path d="M0 300 L0 250 C120 212 240 232 360 202 C480 172 600 212 720 182 C840 152 960 202 1080 192 C1200 182 1320 222 1440 202 L1440 300 Z" fill="#131d26" opacity=".55"/>
+      <path d="M0 300 L0 282 C160 252 320 272 480 252 C640 232 800 262 960 242 C1120 222 1280 258 1440 242 L1440 300 Z" fill="#0f171f" opacity=".75"/>
+      <g fill="#0b1218" opacity=".9">
+        <path d="M238 236h6v20h-6zM232 230h18v6h-18zM235 224h12v6h-12z"/>
+        <path d="M298 248h6v16h-6zM292 242h18v6h-18z"/>
+        <path d="M352 240h5v18h-5zM346 234h17v6h-17zM348 228h12v6h-12z"/>
+      </g>
+      <g fill="#0b1218" opacity=".85">
+        <path d="M880 250c-4-10-2-18 4-22 3 4 4 9 4 13v9z"/>
+        <path d="M884 250c0-6 3-12 8-15v15z"/>
+      </g>
+    </svg>
+  </div>
+  <div class="layer bg-river">
+    <svg viewBox="0 0 2000 200" preserveAspectRatio="none">
+      <path d="M0 140 Q 125 108 250 140 T 500 140 T 750 140 T 1000 140 V200 H0 Z" fill="#1b2730" opacity=".45"/>
+      <path d="M1000 140 Q 1125 108 1250 140 T 1500 140 T 1750 140 T 2000 140 V200 H1000 Z" fill="#1b2730" opacity=".45"/>
+      <path d="M0 158 Q 125 130 250 158 T 500 158 T 750 158 T 1000 158 V200 H0 Z" fill="#E3B04B" opacity=".14"/>
+      <path d="M1000 158 Q 1125 130 1250 158 T 1500 158 T 1750 158 T 2000 158 V200 H1000 Z" fill="#E3B04B" opacity=".14"/>
+    </svg>
+  </div>
+  <div class="layer bg-clouds">
+    <svg class="cloud" style="top:9%;animation-duration:70s;color:#F2D08A;width:150px"><use href="#s-cloud"/></svg>
+    <svg class="cloud" style="top:22%;animation-duration:95s;animation-delay:-32s;color:#fff;width:104px;opacity:.5"><use href="#s-cloud"/></svg>
+    <svg class="cloud" style="top:6%;animation-duration:82s;animation-delay:-54s;color:#fff;width:180px;opacity:.35"><use href="#s-cloud"/></svg>
+  </div>
+  <div class="layer bg-petals">
+    <svg class="petal" style="left:6%;width:16px;animation-duration:13s;animation-delay:-2s;color:#F2D08A;opacity:.8"><use href="#s-petal"/></svg>
+    <svg class="petal" style="left:18%;width:12px;animation-duration:17s;animation-delay:-6s;color:#E3B04B;opacity:.6"><use href="#s-petal"/></svg>
+    <svg class="petal" style="left:32%;width:18px;animation-duration:15s;animation-delay:-9s;color:#B5272F;opacity:.7"><use href="#s-petal"/></svg>
+    <svg class="petal" style="left:47%;width:13px;animation-duration:19s;animation-delay:-4s;color:#F2D08A;opacity:.55"><use href="#s-petal"/></svg>
+    <svg class="petal" style="left:63%;width:17px;animation-duration:14s;animation-delay:-11s;color:#E3B04B;opacity:.7"><use href="#s-petal"/></svg>
+    <svg class="petal" style="left:78%;width:12px;animation-duration:16s;animation-delay:-7s;color:#B5272F;opacity:.6"><use href="#s-petal"/></svg>
+    <svg class="petal" style="left:90%;width:15px;animation-duration:18s;animation-delay:-13s;color:#F2D08A;opacity:.65"><use href="#s-petal"/></svg>
+  </div>
+</div>
+
+<!-- ===== 全屏漂浮文化元素（牡丹花瓣，贯穿各屏） ===== -->
+<div class="fx" aria-hidden="true">
+  <svg class="petal" style="left:10%;width:14px;animation-duration:15s;animation-delay:-3s;color:#E3B04B;opacity:.4"><use href="#s-petal"/></svg>
+  <svg class="petal" style="left:26%;width:11px;animation-duration:19s;animation-delay:-8s;color:#F2D08A;opacity:.35"><use href="#s-petal"/></svg>
+  <svg class="petal" style="left:44%;width:15px;animation-duration:16s;animation-delay:-12s;color:#B5272F;opacity:.35"><use href="#s-petal"/></svg>
+  <svg class="petal" style="left:61%;width:12px;animation-duration:20s;animation-delay:-5s;color:#F2D08A;opacity:.4"><use href="#s-petal"/></svg>
+  <svg class="petal" style="left:79%;width:14px;animation-duration:17s;animation-delay:-10s;color:#E3B04B;opacity:.32"><use href="#s-petal"/></svg>
+  <svg class="petal" style="left:92%;width:11px;animation-duration:21s;animation-delay:-15s;color:#B5272F;opacity:.3"><use href="#s-petal"/></svg>
+</div>
+
+<!-- ===== 顶栏 / 导航 ===== -->
+<div class="topbar">
+  <div class="brand">
+    <span class="logo">豫</span>
+    <span class="name">豫见真相<small>反谣公益宣传 H5</small></span>
+  </div>
+  <span class="badge"><span class="dot"></span>河南辟谣公益</span>
+</div>
+<div class="progress" id="progress" style="width:0"></div>
+<nav class="nav-dots" id="nav-dots" aria-label="页面导航"></nav>
+<div class="pageno"><span id="pageno-cur">01</span> / <span id="pageno-total">08</span></div>
+<div class="hint-desktop">滚轮 / 方向键翻页 · 悬停卡片可翻转</div>
+
+<!-- ===== 滑屏舞台 ===== -->
+<div id="deck">
+
+  <!-- 01 封面 -->
+  <section class="slide dark cover" id="cover">
+    <div class="slide-inner cover-inner">
+      <span class="seal reveal" style="order:-1">辟谣先锋</span>
+      <div class="cover-badge eyebrow reveal d1">河 南 · 辟 谣 公 益 宣 传</div>
+      <h1 class="cover-title reveal d1">豫见真相</h1>
+      <div class="cover-sub reveal d2">反 谣 同 行</div>
+      <p class="muted reveal d3" style="letter-spacing:2px;font-size:15px">让真相跑在谣言前面 · 不信谣 · 不传谣 · 不造谣</p>
+      <div class="cover-tags reveal d4">
+        <span class="chip">三农</span><span class="chip">经济</span><span class="chip">教育</span><span class="chip">医疗</span><span class="chip">文化旅游</span>
+      </div>
+      <div class="cover-cta reveal d5">
+        <button class="btn" data-goto="1"><svg class="icon" style="width:18px;height:18px"><use href="#s-shield"/></svg>开启辟谣之旅</button>
+        <div class="scroll-hint"><svg class="icon" style="width:18px;height:18px"><use href="#s-down"/></svg><span>向下滑动</span></div>
+      </div>
+    </div>
+    <div class="cover-deco" style="display:flex;justify-content:center;gap:38px;padding:0 24px 20px;bottom:0">
+      <svg style="width:44px;height:44px;color:#f6efe2"><use href="#s-buddha"/></svg>
+      <svg style="width:44px;height:44px;color:#f6efe2"><use href="#s-pagoda"/></svg>
+      <svg style="width:44px;height:44px;color:#f2d08a"><use href="#s-taiji"/></svg>
+      <svg style="width:44px;height:44px;color:#f6efe2"><use href="#s-opera"/></svg>
+      <svg style="width:44px;height:44px;color:#f2d08a"><use href="#s-peony"/></svg>
+    </div>
+  </section>
+
+  <!-- 02 为何反谣 -->
+  <section class="slide light" id="about">
+    <div class="slide-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">为什么 · 反谣</div>
+        <h2 class="htitle" style="font-size:clamp(28px,4.6vw,46px)">一条谣言，能跑多远？</h2>
+        <p class="lead muted" style="max-width:760px;margin-top:8px">网络谣言混淆视听、扰乱生产生活，甚至危害公共安全。谣言总爱披着“为你好”的外衣，跑得比真相更快。识谣、辨谣、反谣，需要每一个“中原网民”共同接力。</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat reveal d1"><div class="num">11.08<em>亿</em></div><div class="cap">截至 2024 年 12 月，我国网民规模</div><div class="src">来源：CNNIC《第55次中国互联网络发展状况统计报告》</div></div>
+        <div class="stat reveal d2"><div class="num">约70%</div><div class="cap">谣言被转发概率比真实信息高出约七成</div><div class="src">来源：美国《科学》Science (2018) 假新闻传播研究</div></div>
+        <div class="stat reveal d3"><div class="num">6<em>倍</em></div><div class="cap">谣言传播速度约为真相的 6 倍</div><div class="src">来源：美国《科学》Science (2018) 假新闻传播研究</div></div>
+      </div>
+      <div class="chain reveal d4">
+        <span class="node red">造谣</span><span class="arrow">→</span><span class="node">传播</span><span class="arrow">→</span><span class="node">被误信</span><span class="arrow">→</span><span class="node red">危害</span>
+        <span class="muted" style="font-size:12px;margin-left:6px">从“听说”到“危害”，只差一次轻率的转发</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 豫地辟谣路线 -->
+  <section class="slide light" id="route">
+    <div class="slide-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">路线式 · 走豫路辨真相</div>
+        <h2 class="htitle" style="font-size:clamp(24px,3.8vw,40px)">沿着黄河，六站谣言散去</h2>
+        <p class="muted" style="margin-top:6px">从殷商古都安阳出发，一路南下到茶都信阳，点击路线节点，看看这些发生在河南的谣言是如何被揭穿的。</p>
+      </div>
+      <div class="route-body">
+        <div class="map-box reveal d1">
+          <span class="map-tip">点击城市节点 · 查看真相</span>
+          <svg viewBox="0 0 800 766" role="img" aria-label="河南省辟谣路线图">
+            <defs>
+              <radialGradient id="mapBg" cx="50%" cy="40%" r="70%">
+                <stop offset="0%" stop-color="#FBF6EA"/><stop offset="100%" stop-color="#EFE4CE"/>
+              </radialGradient>
+            </defs>
+            <rect width="800" height="766" fill="url(#mapBg)"/>
+            <path d="M103.2 427.8L102.5 429.6L102.5 431.8L104.4 433.5L105.3 437.5L105.3 440.9L104.5 443.5L101.7 445.7L103.4 449.8L103.4 451L104.1 453L105.2 454.4L105.3 455.8L104.8 457.3L105.6 459.5L105.1 460.8L102.1 461.7L102 463.2L103 464.6L101.9 464.9L101.8 466.4L101 468.6L100 469.4L101.7 471.6L100.3 471.5L101.7 473.9L103.5 474.7L104 476L105.7 477.4L105.9 478.1L108.2 479.4L108.9 481.8L106.5 485.1L107.5 485.5L109.4 483.2L110.8 482.2L112.6 482L113.8 482.8L114.7 484.6L117.3 486L117.8 488.4L118.6 488.9L119.5 490.4L121.4 490.3L123.4 491.6L123.1 493.6L124.8 495.7L125 497.9L122 499L120 500.5L119.7 502L120.2 502.4L123.4 501.8L124.6 502.6L128.4 502L130.6 502.8L130.7 505.3L132.8 507.2L134.1 509.9L134.6 512.1L133.9 513.3L132.2 514.5L131.3 516.1L130.9 518.1L131.8 520.4L131.3 524.1L132.4 524.7L134.1 522.7L135.4 521.8L136.6 523.5L136.5 527.4L137 528.3L139.7 529.5L141.4 530.9L144.7 531.5L147.2 532.6L147.8 533.7L149.2 537.5L150.3 539.3L150.1 540.3L150.8 541.2L151.2 542.9L152.3 543.8L154.1 543.9L155.2 543.2L155.4 542.3L157.1 541.9L156.9 540.8L157.7 540.9L158.6 542.7L157.9 543.4L157.8 545.6L156.4 547.2L154.9 545.8L154.6 547.3L153.4 546.1L152.6 546.4L154.5 547.8L157.3 547.9L158.3 548.5L157.7 550L159.1 551.9L163.1 554.8L164.7 557.7L164.5 558.6L165.1 561.4L168.5 565.3L170.7 566.3L173.8 563.9L175.6 561.5L177.5 560.4L178.3 560.4L178.3 562.9L178.9 564.5L182.1 563.3L184.4 564.6L186.9 564.5L188.8 566.3L190.1 567L190.9 568.6L193.2 570.4L195.4 571.5L198.3 574.5L200.4 574.3L200.5 575.3L204.1 575.6L204.7 577.8L205.5 578.8L207.9 579.3L210.9 578.6L212.9 577.6L214.9 577.3L215.8 578L217 580.5L218.3 583.9L220.1 584.4L219.8 585.8L221.1 585.5L221.8 586.7L222.7 586.9L224.8 585.1L225.5 584L226.7 583.5L228.6 583.4L229.3 585.5L228.8 587.7L229.9 588.8L231.2 589L230.6 590.4L231 591.2L232.1 591.4L233.9 593.4L235.8 594.2L236.5 593.6L237.3 595.4L239.6 597.3L240.5 596.2L238.9 596.3L240.2 594.2L238.4 593.6L238.8 592.4L240.6 592.4L241.5 593.2L241.4 594.3L242.2 595.2L241.5 596.2L245.5 595.1L248.2 596.2L248.4 597.3L250.9 598.6L251.3 599.8L252.1 599.9L255.3 601.9L256.6 603.4L260 605.3L260.2 602.9L261.2 601.4L262.7 601.2L263.8 599L264.8 598.7L267.1 599.3L267.5 598.2L270.2 599.3L270.6 600.2L274.5 602.2L274 600.4L275.7 598.6L277.2 598.1L277.7 596.8L279.9 597.7L281.2 596.8L283 596.5L284.1 597.3L285.8 594.7L285.8 593.5L287.8 594.2L289.7 595.8L289.6 596.6L291 596.7L291.9 596.1L293.8 595.9L296 596.9L297.7 598.6L300.9 598.6L302.5 600.1L305.8 600.8L306.5 599.5L308.2 598.9L308.4 601L310.7 602.2L312.3 602.1L313.3 600L316.6 598L320.4 596.7L323.3 594.7L324.5 594.4L325.5 595.1L325.3 597L326.7 597.4L328.3 595.7L329.4 595.4L333.7 595.7L335.2 596.2L336.3 598.2L338.5 598L338.9 597.2L338.5 594.1L340 591.7L341.4 591.6L342.9 590.5L345.9 591.5L346.9 593.4L349.3 594.9L352.7 594.3L354 597.5L357.8 597.5L358.4 596.8L358.9 593.9L358.8 592.5L360.4 591L362 590.9L365.1 589.5L366.8 590.4L368 593.1L370.8 595.4L372.4 596.2L375 598.7L375.4 600.7L378.6 601.7L379.5 603.2L377.7 604.5L377.8 605.7L379.4 606.1L381.2 608.6L383.3 609.1L384.7 608.6L386.8 610.1L387.2 611.3L388.7 611.5L389.9 612.7L390.9 612.6L395.9 608.5L397 608.5L399.4 606.6L400.7 606L402.8 604L404.4 604.5L405.3 604.3L405 606.1L405.4 608L406.7 607.3L406.1 604.9L405.5 604.2L407.1 602.6L409.2 602.2L408.8 600.5L410 601.3L411.9 601.1L410.5 600L410.5 599L411.8 599L412.7 600L414.2 599.3L414.2 597L415.6 596.1L416.4 593.7L417.3 592.1L418.7 592.6L419 590.9L419.8 591.5L421.2 591.2L422 591.8L423.4 591.2L424.1 592.6L425.4 591.6L427.3 592.5L428 595L429.3 595.5L429.5 596.3L428.4 598.4L429.3 599.7L430.3 598.5L431.3 598.4L431.6 600L430.1 600.9L429.5 602.4L429.5 604.3L430.9 605.6L431.9 607.5L431.4 608.2L431.3 610.7L431.5 611.8L430.1 611.7L429 612.3L429.1 614.1L427.8 614.5L428 616.6L428.9 617.7L429.4 620.4L430.8 622.1L432.4 621.6L433.1 624.2L430.7 628.2L431 631.5L429.1 634.7L427.9 635.2L427.5 633.9L425.8 633.6L426.5 637.1L426.5 639.4L428.5 640.4L428.8 641.4L430.7 643.5L432.8 644.4L434 646.2L432.6 648.6L431.5 648.9L430.2 651.2L430.2 653.3L431.3 654.3L432.2 654.2L433.6 655.1L434.9 655.1L437 656.1L435.9 658.7L435.6 661.2L437 662.3L438.9 663L439.3 664.1L439.2 666.7L438.7 668.7L439.6 670.2L439.6 672.2L442 674.1L443 673.5L443.7 674.2L446.5 672.9L447.7 670.2L448.7 669L450.7 668.4L450.9 670.1L453.5 671.9L453.6 674.2L452.5 676.2L453.2 678.1L453.2 680.9L454.7 682.1L455.5 684.1L455.5 685.3L456.3 686.6L457.5 687.1L460.7 684.3L463.4 684.5L464.5 683.8L465.8 684L466.4 682.6L467.4 682.2L469.1 682.5L469.5 680.7L470.6 679.5L473 679.2L474 676.2L473.9 674.9L474.8 673.9L476.7 674.4L478.2 674.1L478.7 672.7L480.3 672.3L482 672.8L483.7 673.9L485.1 675.4L486.9 674L486.8 675.2L488.4 678.5L490 680.5L490.3 681.6L493 685.4L493.6 686.8L496.2 686.9L497.1 686.4L500.5 686.4L503.3 688L505.2 688.4L506.4 687.6L508.3 688.3L508.7 689.6L510.1 689.3L511.9 690.3L512.4 688.9L513.7 689.6L514.9 688.5L517 689.2L519.3 688.5L518.8 686.2L519.4 684.7L520.8 684.7L521.9 688.2L523.7 687.7L524.3 686.7L524.2 685L524.8 684.5L526.9 685.4L528.1 685L528.7 686.6L528 688.2L528.3 689.8L527.8 690.8L527.7 693.2L529.1 694.3L528.5 695.4L527.1 695.9L526.7 700L525.3 700.6L524.2 702.6L524.6 703.6L524 705L524.1 707.2L525.5 714.2L526.9 715.2L527.2 714.4L528.7 714.3L529.6 712L531.6 711.7L532.2 710.7L535.1 711.2L535.5 712.3L536.5 712.6L536.9 714L538.5 716.2L539.5 716.7L542 716.4L541.7 719.3L544.1 719L544.8 720L546.8 719.1L547.7 719.5L548.8 719.1L550.5 720L551.4 720L550.9 721.2L550.9 722.8L551.9 723.7L551.9 725.2L552.7 725.8L555.5 726L556.8 727.3L557.5 728.9L558.9 728.4L560 726.4L562.9 726.1L563.1 727.2L564.3 727.3L565.4 726.6L568.9 725.8L570.2 727.3L570.6 726.2L573.5 723.6L574.9 723.6L576 726.2L577.5 727L578 725.1L579 724.7L577.9 723L578.9 722.3L580.5 719L581.3 719L582.3 720.5L583.6 720.5L585.6 721.5L589.2 721.8L588.8 720.2L589.9 720L591.2 718.8L590.3 717.2L590.9 715.7L590 715L590.4 713.3L592.9 711.6L592.7 708.8L593.8 708.3L597.3 708L598.8 708.8L599.2 711.8L600.7 713L600.7 713.8L602.4 713.8L603 715L605.8 714.9L605.2 717.5L603.7 720.8L603.8 722L603 724.4L603.5 725.6L603.6 728.3L602.8 730.8L604 733.5L605.4 733.4L607.8 734.2L608.7 735.6L607.5 738.5L608.7 739.1L611.2 737.3L612.7 738L613.5 739.6L615 739.7L616.7 738.6L617.7 736.8L620 737.3L622.2 736.5L623.3 734.6L623.6 731.1L624.1 730.1L622.7 727.2L621.9 723.6L622.6 722.5L624.1 721.9L625.1 720.7L627.2 719.3L628.7 716.2L629.1 714.5L628.7 713.9L629.9 711.5L630.1 710.3L634.3 707.7L635.6 707.2L636.1 705.3L634.5 702.1L635.3 701.6L635.6 699.9L636.7 698.2L639 696.8L641 694.5L643.6 695L644.9 693L647 692.3L647.5 691.2L649.3 689.8L651.4 688.8L653.5 686.4L656.2 685.7L658.2 683.1L659.8 683.4L660.6 684.5L662.3 684.2L663.3 684.9L665.3 685.3L665.1 683.4L666 682.6L668.4 682.5L669.1 681.7L671.4 682.8L672.1 683.8L673.9 683.9L674.7 685.4L676.6 683.2L677.3 683.8L678.9 681.9L679.8 683.8L683 683.4L684.9 681.1L686 681.1L686.6 678.3L686.3 677.1L685.3 675.8L683.9 675.2L684.3 670.3L684.6 668.5L686 666.4L687.2 662.7L686.7 660.5L685.8 659.5L686.1 657.4L687.5 653.4L687.7 652L688.5 652.1L688.1 648L687.1 647.4L688.1 646.2L687.4 644.2L687.8 643.1L689.5 641.9L689.8 640.2L688.6 639.3L687.9 636.3L689.4 631.4L689.3 629.6L689.7 627.5L688.8 625.5L687.5 623.9L687.5 622.2L686.3 618.7L686.5 614.8L687.3 612.9L686.1 610.7L685.8 608.5L684.8 608.2L685.6 606.7L685.3 602.5L684.7 601.9L684.5 597.8L684.7 595.4L683.5 592.1L683.5 590.6L682.3 589.4L682.8 588.5L682.7 586L680.5 585.6L681.6 583.9L682.5 583.7L682.8 581.3L681.7 580.1L681.6 579.1L679.2 579.1L678.3 579.5L678.5 578.4L679.7 577.2L681.6 576L681.9 573.7L684.7 571.7L686 570.1L688.3 570.1L686.2 568.6L683.8 568.8L683.3 570L680.2 574.4L678.3 575.2L677.6 576.2L677.8 579.6L675.7 579.4L673.4 581.8L671.5 584.2L670.7 584.3L671.4 582.6L671.2 581.3L669.5 579L668.1 582.3L666 583.1L663.3 581.8L661.1 580.4L660 581.5L660.1 582.5L661.1 583.6L660.8 584.3L658.1 584.5L658.8 586.8L658.7 588.3L657.9 589.6L657.1 592.7L655.8 592.8L656 589.9L654.5 591.5L652.3 593.3L649.6 590.3L647.4 591.3L644.8 593.6L643.6 593L645.4 592L645.2 591L642.8 590.5L641.7 588.5L640 588L640.1 587.2L639.1 586.8L637.5 582.2L636.9 580.8L635.4 579.2L635.4 578L634.5 578L634.6 576.9L633.1 576.9L629.9 575.1L630.5 573.5L629.4 573.3L629.1 572.2L627.5 572.2L626.5 572.8L626.8 571.2L626.7 569L625.7 568.7L624.4 570.2L623.8 569.6L616.9 571L615.9 570.8L616.3 571.9L613.9 572L613 570.8L613.5 569.9L614.7 569.6L613.2 568.8L614.1 567.8L613.3 567.1L612.8 568.1L612.1 566.9L609.5 568.6L608 567.6L608.8 566.6L608 566.1L606.7 566.3L604.8 568.5L605 566.8L603 567.1L601.7 566.6L600.6 565L602 564.5L602.6 563.6L601.5 562.6L601.8 560.8L600.9 560.9L600.9 559.3L601.8 558.9L602.7 560.2L602.6 558.3L603.8 556.9L602 557.7L602.1 555L600.8 553.5L600.3 554.1L601.2 555L599.5 555.9L599.7 554.2L599 553.5L599.5 551.9L599 550.8L599.7 548.2L599.1 547.3L600.3 540.9L599.6 540.1L599.4 538.6L600.5 538.2L602.3 538.9L603 538.6L602.3 537.1L601.2 536.5L600.3 535L601 532.6L600.2 531L601.8 530.5L601.4 529L600.5 528.5L598.7 528.7L596.7 527.8L596.2 525.7L594.7 524.7L594.5 522.8L591.6 522.4L589.9 523.3L588 522L585.7 522L581.3 521.5L581 520.4L582.1 520.1L582 517.8L580.6 517.6L578.8 516.7L575.2 516.5L573 516.8L571 517.4L570.1 515L568.7 514L567.8 512.2L565.1 512L564.2 511.2L563.8 509.5L566 508.1L564.9 505.2L567.7 505.8L568.7 505.7L570.2 504.5L568.6 502.9L568.5 501.2L567.6 499.6L568.2 498.3L567.5 496.3L565.5 495.7L565.5 494.7L566.6 491.4L566.2 489.6L567.1 488.6L569 488.3L569.9 486.2L573.7 487L574 489L575.5 489.6L576.8 490.8L576.6 493.4L579.2 494.1L580.5 495.1L582.6 495.7L583.9 494.9L584.6 496.1L585.8 495.8L591 496.2L596 496L597.7 495.4L598.2 492.6L601.2 490.7L602.7 491.9L604.4 490L605.9 490L607 488.6L609.4 489.1L609.8 488.4L612.3 489.2L612.6 487.6L613.6 487.8L613.4 484.8L612.7 482.6L613 479.3L616.6 477.8L615.4 476.8L615.4 476.1L617.2 474.4L617 472.2L618.2 470.7L618.3 469.2L617.4 467.3L617.6 465.4L619 465L620.6 465.4L620.4 463.5L621.1 460L619.2 459.6L619 456.7L618 456.1L618.4 455L615.3 455L615 454.1L616.9 450.6L615.5 448.2L615.3 446.3L615.7 444.9L615.4 443.8L616.3 443.8L616.3 442.6L617.7 444.1L618.9 443.7L619.2 439.5L618.6 439.2L619.5 437.9L618.8 436.1L621.3 433.1L624.7 435.6L624.9 436.2L625.9 434.1L625.5 433L627.1 430.5L627.9 428.4L632.9 426.9L633.9 428.2L635.4 428.1L637.3 427.2L638.5 428.9L640.6 427.5L643.5 427.1L644.3 427.6L645.1 425.6L649.2 425.3L653.8 424.3L652.1 418.5L651.2 417.4L649.3 413.9L649.4 411.8L649 409.5L649.9 409.4L648.7 407.8L649.3 405.4L648.5 403.1L647.1 401.1L646.1 400.4L645.5 398.5L644.7 397.6L645 396.4L647 395.1L648 395.9L650.8 397L651.6 394L651.9 391.8L651.1 390.7L652.1 390.1L652.2 388.3L653.4 387.6L653.1 383.9L651.6 382.6L649.8 383.9L648.1 383.7L646.7 382.5L644.8 383.3L644.1 382.6L642.7 382.7L642.7 380.9L643.8 380.8L643.7 379.2L645.4 377.8L644.3 377.1L644.6 375.3L645.5 374.5L645.4 372.7L646.4 372L646.6 368.6L647.7 368.2L648 366.9L647.2 366.5L648.2 363.5L649.9 363L649.2 361.5L650.9 360.1L651.6 360.6L654.1 360.3L655 359.7L654.8 358.3L655.5 356.3L657.3 356.8L658.8 355.5L660.8 355.4L661.7 356.3L665.2 353.9L669.2 356L670.7 356L670.5 354.4L672.1 355.8L674 355.9L674.7 357.3L676.7 359.4L678.3 360.5L678.3 363.2L679.1 364.3L682 364.4L682 360.8L683.3 360.2L684.2 360.8L684.7 362.8L685.3 363.5L687.1 363.3L687.9 363.8L691.6 363.8L692.8 364.6L694.8 366.6L696.1 368.5L696.7 370.1L696.1 372.4L694.6 376.7L695.1 379L696.6 378.9L698.2 379.6L698.3 381.3L700.8 382.1L703.7 384.8L703.4 386.2L704.4 386.7L704.2 389.8L702.1 389.4L702.1 390.2L703.6 390.5L704.1 391.5L703.3 392.8L705.4 394.4L705.5 396.2L708.4 396L708.4 397.1L709.7 399.5L712.3 400.4L715.1 406.4L717.4 406.6L720.1 404.2L721 404L723.6 404.6L724 402.9L725.9 403.7L728 403.5L730.5 400.7L733.3 399.6L734.3 397.6L735.8 398.3L736 397.3L738.1 396.6L739.6 396.9L741 396.4L743.5 396L745.2 392.7L746.8 394.1L748.1 394.2L748.6 393.1L748.2 391.8L748.7 386.9L750.5 386.8L751.4 384.9L753 384.8L754.3 383.5L756.4 384.3L756.8 383.2L758.6 383.4L759.1 382L760.5 381.7L760.8 382.9L761.7 381.7L763.1 381.9L762.7 380.9L763.1 379L764.1 378L765.8 378L767.7 378.6L769.4 380L771.3 380.8L773.1 380.3L772.6 376.7L773.5 374.9L772.8 372.2L774 370.7L773.7 368.7L772 368.2L771.6 367.2L768.9 364.9L768.9 363.9L768.1 363.2L768.5 361.6L767.6 359.4L766.5 358.3L764.5 354.7L764.1 352.9L763 350.9L760.8 350.1L761.1 349.1L759.5 347.3L760.2 346.8L760.4 343.3L761.6 341.8L763.9 340.6L763.2 338.2L761.6 337L761.2 333.5L761.7 332.2L761.3 330.6L762.5 330.2L764.2 328.9L765.9 326.7L765.9 325.5L764 324.2L757.5 322.4L755 323.2L752.1 326L751 326.3L750 324.7L750.5 323.8L749.7 323.6L747.9 325.1L748.2 326.2L746.2 326.5L745 325.3L743.5 325.3L741.4 326L740.9 326.8L739.9 325.3L741.1 322.8L740.1 320.1L739.2 319.1L735.9 317.7L732.5 315.9L731 313.5L729.6 313.3L728.9 311.8L727.1 311L725.2 311.2L722.1 310.1L721.6 309L722.5 308.2L722.3 307.1L721.1 305.3L718 303.2L717.5 301.2L715.9 299.1L717.9 295.6L717.9 293.8L719.2 293.7L720.9 292L720.9 290.6L719.4 288.2L720 285.3L720.1 282.4L719.3 283.2L715.3 285.6L714.1 285.6L712.7 284.7L711.5 282.9L710.7 280.4L708.7 278.1L706.5 277.7L703.2 279.6L701.1 279.9L699.5 278.7L697.9 276.7L696.8 276.2L695.6 276.7L694.9 277.9L694.8 280.5L693.1 281.4L690.3 281.6L679.8 283.2L678.8 283.9L677.4 283.6L677.5 284.6L676.1 284.9L672.4 282L668.4 280.7L663.9 280.5L662.4 279.1L660.9 279.1L660.7 283.4L659.1 285.3L657.4 285.1L654.3 283.6L653.8 283L651.7 282.6L650.3 282.9L647.3 283.1L644.5 282.9L643.7 283.4L641.4 282.8L639.1 281.4L636.2 277.9L634.7 275.2L632.6 273.6L632.2 270.9L630.6 268.3L630.9 264.8L630.7 263.1L629.3 261L629.7 259.7L631.2 258.3L629.7 253.6L629.6 252.4L628.5 249.5L627 249.2L627.2 248.4L626.3 246.6L624.6 245.7L622.8 246.2L620.2 245L618.9 243.7L616.9 242.9L615.5 241.8L613.7 241.9L612.2 242.9L609.5 242.6L608.2 243.8L606.7 243.1L606.2 239.6L606.4 238.3L607.4 236.8L607.7 235L606.2 234.3L602.1 233.9L601.8 232.3L602.9 229.8L604.2 229.4L603.8 227.3L602.5 227.6L601.7 228.7L598.6 227L596.4 227.7L596.4 226.4L595.2 224.5L593.3 224L593.6 221.7L593 221L590.4 221.5L586.7 221.6L583.9 223.7L582.2 224.3L580.7 225.7L579.6 224.9L578.7 223.3L571.9 223.1L570 224.4L568.7 226.1L567.5 224.8L566.8 223.2L564.6 222.5L563.5 221.1L564 218.5L562.3 218.1L561 221.3L557.2 220.2L556.9 219.9L558.6 219L560.2 217.5L560 215.6L558 215.6L556.2 214.2L557.7 211L561.2 209.8L563 208.6L563.8 207.5L563.9 205.9L562.6 203.6L561.2 202L558.9 200L558.8 198.8L559.9 196.9L561.3 195.5L563.1 194.6L567 193.8L569.2 193.8L569.7 193.2L569.4 186.1L572.3 185.1L572.7 184.2L574.8 184.2L574.9 182.9L573.4 182.4L575.4 179.4L578.1 176.3L579.5 176.1L579.8 173.3L580.8 172L581.9 168.9L582.9 167.7L584.6 167.4L586.7 167.9L588.3 165.4L587.8 162.9L588.6 162.1L590.3 163.8L591.4 163.8L591.8 162L591.8 164.3L592.8 163.1L592.8 161.8L594 161.3L597.7 160.6L600.3 160.8L601.3 161.4L602.7 161L606 161L608.4 159.3L610.2 157.4L609.9 156.2L611.8 155.1L614.3 152.9L618.1 151.4L620.1 151.4L620.3 149.1L619.4 145.8L619.8 144.2L620.6 143.8L618.9 143.3L618.8 142.3L620.3 142.2L620.5 140.7L621.7 141.5L621.8 139.9L623.3 140.2L623.4 138.9L624.1 139L624.7 137.6L626.7 135.2L627.2 132.3L630 129.5L631.5 127L632.6 124.1L635.5 119.9L638.6 117.5L640.1 117.6L641.2 116.5L643.5 117L644.6 115.9L647.1 117L647.8 115.9L651.4 115.8L656.8 114.1L660.2 113.6L660.8 111.6L660.5 108.7L661.5 108.6L661.7 106.3L663.1 106.7L663.4 104.6L664.3 104.8L665.1 102.3L667.3 102.3L667.3 101.6L668.6 101.6L669.7 99.3L674.9 100.7L675.4 99.5L677.8 99.9L677.7 98.9L680.4 99.1L680.7 97.2L681.5 96.6L681.4 98.7L681.8 98.6L681.9 96.3L682.7 95.6L682.8 93.4L683.5 93.1L683 91.4L681.5 91.4L681.8 89.8L685.7 88.9L686 87.6L685.5 86.2L686.2 84.1L691.6 83L694.9 82.1L697.7 82.3L701.2 83.7L702.5 82.7L702.9 78.5L704.1 74.3L705.4 74.7L706.1 72.3L705.7 70.3L707 68.2L707.1 66.8L708.2 65.2L708.5 62.4L703.5 63.4L700.1 68.1L698.6 69.6L695.5 71.9L692.4 72.5L689 73.9L687.5 75.3L686.4 75.5L684.3 74.7L681.5 76L680 77.9L678.4 77.7L677.3 76.8L674.9 76.6L672.6 77.4L670.5 79.3L671.3 79.7L669.8 81L669.9 82.1L668.6 82.6L665.3 83.2L663.1 82.5L660.8 83.3L659.4 84.8L659.1 86.4L655.3 88.6L654.1 89.9L650 89L647.2 89.6L642.9 93L637.6 94.4L632.5 97.4L629.3 101.5L629.2 102.2L627.4 103.5L626.2 105.8L621.9 108.7L621 109.9L617.6 107.5L617.7 105L618.7 101.5L619.3 98.3L618 97.8L618.6 96.7L620.2 97L621.1 93.6L621.4 89.8L621 88.5L619.9 87.4L620.1 84.9L620.9 82.4L623.7 82.1L624.8 79.6L627.7 77.7L630.4 77.1L631 76.6L631.1 71.6L630.3 70.4L632.4 69.3L631.9 68.2L632.4 66.9L633.2 67L635.3 60.4L635.2 57.1L633.6 56.5L632.9 53.9L631.4 54.1L631.2 56.9L629 57L628.1 58.3L626.2 58.4L625.9 56.1L625.3 58.3L624.4 59.9L622.7 60L621.7 63.7L620.5 64.8L618.3 65.9L617.4 65.4L616.2 66L614.4 65.4L613.1 63.4L613.6 59.8L611 58.7L609.1 55.7L608.7 53.8L606.5 51L603.1 49.3L601.9 49.2L601.7 47.9L600.2 50.4L598 51.1L596.4 50.5L596.4 49.5L594.7 48.4L592.6 48.3L590.9 49.9L590.2 53.7L589.6 53.8L586 52.7L585.2 52.9L583.5 55.2L583.6 57.3L583.1 59.7L583.2 62.3L582.3 63.1L577.6 68.4L576.5 69L574 68.3L572.3 68.7L569.8 70.6L569.7 71.2L568.3 71.5L567.6 71L569 65.6L568.5 63.6L567.4 63L566.7 61.2L567.3 58.3L565.1 58.4L564.9 57.8L562.1 57.4L560.9 57.7L560.8 60.1L558.9 59.5L557.7 59.7L556.9 60.7L554.3 59.7L552.9 59.8L551.4 59.3L551.3 60.1L549.7 60.4L549.5 59.1L548.2 58.5L548.2 57.4L546.2 56.1L544.5 58.4L543.5 57.6L541.2 57.5L541 58.6L536.7 58.3L534.6 59L533.8 60.6L532.5 60.7L531.5 60L530.7 61L528.1 61L528.6 58.2L527.3 57.9L526.4 56.6L525.2 56.8L523.5 55.2L522 55.2L522.2 53.8L518.9 53.7L518.9 53L517 52.9L516.4 52.1L515.9 52.9L514.3 50.1L512.6 49.4L510.1 49.4L508.5 48.9L507.4 46.2L505.5 46.7L502.5 46.1L501.2 45.4L500.9 43.7L500.1 43.3L499.9 41.8L498 41.8L497.9 42.9L496 42.4L495.7 43.1L494.4 43.2L491.4 41.9L489.3 40.6L487.5 42.4L486.8 42.2L485.4 39.6L483.9 39.3L483 43.2L480.8 42.8L480.4 43.6L478.9 43.5L479.8 40.7L478.4 39.8L478.2 40.4L474.4 38.1L473.3 39.4L470.4 39L469.8 38.6L469 39.7L466 38.8L465.7 37.5L463.9 35.8L464.5 34L466.1 32.9L465.4 31.1L464.2 31.7L462.3 31.6L461.9 31.1L462.7 29.7L462.5 28.2L461.8 27.6L460.6 27.9L459.8 29.4L457.1 27.2L456.2 27.1L456.4 29.1L458.2 29.1L458.1 30.1L459.1 31L457.8 31.6L458.1 33.4L456.7 32.9L456.2 31.3L455.1 29.8L454.6 27.9L453.3 27.1L452.5 27.6L452.7 28.8L454.1 29L453.6 30.3L451 30.3L450.7 32.7L448.3 33.3L447.1 30.1L444.7 27.7L441.4 28.3L440.9 28.7L441.5 31.2L439.1 30.5L437.2 31L435.2 29.9L434.7 28.6L432.4 28.3L432.5 26.9L430.7 27.4L429.7 26L428.2 26.2L428.3 27.2L427.1 27.3L426.9 26.4L426.6 29.5L427.5 31.9L425.9 34.7L424.2 35.5L425.1 40.8L424.2 41L423.2 42.3L423.6 44.3L422.6 45.6L420.4 46.5L419.8 48.1L421 47.4L423 47.7L423.8 49.7L422.1 49.5L421.5 50.4L422.9 52.4L419.8 53.3L418.9 53L417.4 53.7L418.4 54.9L420.7 55.5L420.9 56.8L422.6 56.5L424 57.3L423.5 57.9L423.8 59.2L424.8 59.4L422.3 60.6L420 60.5L419.4 59.8L417.9 60.5L420 62.4L419.5 63.5L420.7 64.9L421.2 67.2L421 68.8L421.4 70.4L419.4 71.4L418.6 72.3L418.4 73.4L419.6 74.2L422.6 74.6L422.6 75.8L420.9 76.3L422.7 78.4L421.5 80.4L420.6 80.4L417.1 79.3L415.7 80.1L415.6 81.9L416.9 83.1L417.7 88.2L417.7 90.3L417 91.5L415.7 97L416.5 99.2L418.2 99.3L418.5 101.7L417.2 103.3L416.2 103.8L414.1 102.5L412 103.7L409.5 103.4L409.2 104.4L409.9 105.1L409.6 106.2L411.8 107L409.3 107.9L409.2 109L410.4 108.5L411.1 110.6L410.8 112.9L409.7 115.1L410.2 117.4L411.5 120.5L410.4 122.6L413 123.8L414 125.4L413.5 126.1L414.2 128.2L414.2 131.1L410.3 131.2L408.7 130.9L408 129L407.1 129.3L406.5 127.1L405.1 127.5L405 128.7L405.7 130.2L406.1 132.9L405 133.3L404.4 136.2L403.3 136.6L402.9 137.5L400.2 140.6L400.1 143.1L399.2 145.4L400.4 146.7L400.1 147.7L398.4 147.7L397.6 147.1L394.9 147.8L392.3 148.9L389.4 147.7L387.6 149L386.5 149L385.5 150.7L384 152.9L382.4 153L381.3 154.6L378.7 154.4L377 152.7L375 154.1L374.9 154.7L376.7 154.9L378.2 155.5L378.4 156.7L377.4 156.9L376.3 155.6L375.5 157.2L375.3 158.8L376.1 160.5L373 159.3L371.5 159.4L371.1 158.5L370 158.6L369 157.4L367.3 156.7L364.7 157.6L362.5 157.3L362.6 159.5L361.8 160.8L362.3 162.1L361.9 163.1L360.8 162.3L359.4 163.1L359.8 164.3L361 164.7L360.1 166.3L358.3 167.1L358.2 168.7L357.6 168.6L357.6 171.3L356.2 171.9L356.3 173.5L354.9 174.1L352.7 172.8L351.3 173.3L349.9 172.9L347.9 171L347.1 171.2L344.6 170.1L342.3 170.7L339.7 169.7L338.8 170.7L339.2 172.2L338.1 173.2L338.3 176.3L338.9 178.3L338.6 180.1L337.8 180.5L335.7 179.7L333.7 180.7L332.3 180.9L332.4 182.7L331.5 184.9L328.8 186.4L327.2 186L326.2 186.7L324.2 186.7L322.9 186.2L322.7 185.4L318.8 184.7L315.9 187.5L314.3 188.1L314.3 189.7L312.2 192.4L311.1 192.4L309.5 192.3L308.4 191.5L306.6 192.1L305.7 194.9L304.6 192.8L305.1 190.6L303.7 190.3L302.3 189.1L302.2 188.2L301 188.1L298.9 186.7L298.4 184.5L297.7 184.3L297 186.1L296.3 183.6L294.5 185.3L294.4 186.6L296.4 187.4L296.8 189.3L294.6 190.1L292.6 189.7L289.4 190L288.5 191.3L287.5 191.2L284.7 189.6L282 190.3L279.2 188.7L278.3 189.5L277.2 188.7L275.4 189.2L271.4 187.6L268.7 187L267.4 187.4L265.8 189.5L264.7 190.1L259.1 190.3L257.4 190L255.3 190.5L257.2 185.6L256 185.4L254.6 187L252.1 187.1L249.8 188L246.7 187.2L247.2 186.3L246.8 185.4L243.7 184.9L241.6 183.9L236.9 182.8L235.2 183.7L234.2 183L234.7 182.5L232.1 181.7L230 182L228 181.6L227.5 182.8L229.1 183.7L230.4 186.9L230.6 189.9L228 192.1L226 193L225.9 194.5L227.2 196.3L228.9 199.7L228.1 201.5L229 202.1L227.7 207.5L227.7 208.9L228.4 210.4L228.4 213.7L227.3 215.3L225.6 215.1L225.2 214L223.8 212.9L223.5 211.9L221.7 212.3L217.8 211.6L216.6 210.3L215.3 209.9L212.5 209.9L211.2 211.5L209.1 210.2L207.4 211.6L204.9 210.7L204.5 210.9L199.4 211.8L198.4 212.7L198.6 214.7L198.3 216.4L196.4 217.8L195.1 217.3L193.5 219.5L191.1 219.3L190 221L186.7 221.1L185 221.8L183.8 223.3L181.7 223.3L181.2 224.4L182.4 225.7L183.1 228.7L180.7 230.4L178.8 230.6L176 233.6L175.5 236.7L174.1 237.1L172.4 238.6L172.1 241.4L171.4 242.7L169.9 244.1L168.8 243.8L168 242.8L166.7 242.7L164.8 243.1L163.3 244.5L162.5 244.7L161.8 246L159.2 246.6L157.3 246.4L155.6 245L154.3 244.8L153.3 246.1L151.5 246.4L149.1 248.2L144.3 247L143.7 246.1L142.5 245.8L140.4 247.5L138.5 248.1L137 249.2L135.6 248.9L133.9 247.7L132.4 247.5L131.7 248.3L130.6 251.2L128.6 251.8L127 250.2L123.2 249.7L122 248.4L121.2 248.2L119.7 249.2L117.5 253.2L116.8 255.8L116.1 256.5L110 257.2L106.3 258.8L104.3 260L99.2 263.7L97.8 263.7L96.4 261.7L94.4 260.2L92.5 260.3L92 261.3L92.2 262.7L90.6 269.1L89.4 271.5L88.2 272.6L85.6 273.3L84.6 273.9L82.4 276.4L81.2 276.7L80.2 275.7L79.2 273.6L77.3 271.8L73.7 271.3L72.2 271.5L71.3 273.3L70.3 274.2L67.9 277.8L67.1 278.4L60.8 277.8L55.8 277.9L53.8 278.5L48.2 281.3L46.5 281.3L41.2 277.4L39.7 277.4L38.5 278.2L35.2 279.3L33.7 280.6L31.6 280.5L28.2 278.9L26.8 283.7L27.9 284.2L30.6 284.3L31.2 285L27.5 286.9L26.2 289.5L26 290.7L27 294.2L28.1 295.2L28.3 296.3L29.9 298.3L30.1 299.9L30.9 300.8L31.1 302.8L31.8 303.4L31.8 304.5L34.4 306.2L37.6 307.2L38.7 306.2L39.7 306.3L39.5 308.6L41.3 314L42.9 315.4L43 317L42.4 319L39.5 318.6L38.5 321.1L36.6 323.1L34.4 323.3L33.8 325.3L34.6 325.8L35.8 328.5L35.4 330L41.4 331.6L43.5 333.7L45.5 333.4L48.7 334.4L49.4 337.2L53.2 337.6L53 339.3L57.1 339.5L58.5 340.6L59.5 341.8L59.1 343.3L57.4 345.2L57.9 345.8L56.6 347.1L56.2 348.6L53.5 350.3L53.9 355.6L53.1 356L53.3 359.4L52.9 361.4L55.9 361.4L56.8 359.8L58.2 361.2L57.8 362.2L58.6 362.5L59.1 364.2L60.4 366L60.6 369.2L62.9 369.7L63.5 372.5L62.8 373.6L60.5 373.9L57.6 375.7L57.6 378.1L55.9 378.1L53.6 379.1L53 381L54.6 383.3L56 383.9L55.9 386L57.8 387L60.4 386.9L62.6 386.1L64.6 388L67.9 388.7L69.1 390.8L69.5 392.4L71.3 393.7L72.8 393.6L74.2 394.2L76.1 394.1L76.4 396.1L78.2 397L79.2 399.6L80.2 400.3L80.3 402.5L82.1 406L81 408.9L81.3 410.1L82.2 411L83.2 413.1L85.1 413.9L87.6 417.2L90.1 417.5L90.7 418.1L95 419.3L96.3 420.9L98.1 420.9L99.6 422.8L102.5 425.2L103.2 427.8Z" fill="#FBF4E4" stroke="#C8953B" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M54.5 278.9L185.3 253.2L268.5 236L399.4 233.1L518.3 228.8L601.5 221.6L613.4 164.4" fill="none" stroke="#E3B04B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+            <text x="292.3" y="243.8" font-size="22" fill="#C8953B" text-anchor="middle" font-weight="700">黄 河</text>
+            <path id="route-line" class="route-path anim" d="M505.2 64.1L368.4 187.3L274.5 276.1L413.6 257.5L284 509.6L469.5 629.9"/>
+            <g class="node" data-i="0"><circle class="hit" cx="505.2" cy="64.1" r="30"/><circle class="ring" cx="505.2" cy="64.1" r="13"/><text class="no" x="505.2" y="64.1">1</text><text class="lbl" x="505.2" y="40.1" text-anchor="middle">安阳</text></g><g class="node" data-i="1"><circle class="hit" cx="368.4" cy="187.3" r="30"/><circle class="ring" cx="368.4" cy="187.3" r="13"/><text class="no" x="368.4" y="187.3">2</text><text class="lbl" x="368.4" y="163.3" text-anchor="middle">焦作</text></g><g class="node" data-i="2"><circle class="hit" cx="274.5" cy="276.1" r="30"/><circle class="ring" cx="274.5" cy="276.1" r="13"/><text class="no" x="274.5" y="276.1">3</text><text class="lbl" x="274.5" y="252.1" text-anchor="middle">洛阳</text></g><g class="node" data-i="3"><circle class="hit" cx="413.6" cy="257.5" r="30"/><circle class="ring" cx="413.6" cy="257.5" r="13"/><text class="no" x="413.6" y="257.5">4</text><text class="lbl" x="413.6" y="233.5" text-anchor="middle">郑州</text></g><g class="node" data-i="4"><circle class="hit" cx="284" cy="509.6" r="30"/><circle class="ring" cx="284" cy="509.6" r="13"/><text class="no" x="284" y="509.6">5</text><text class="lbl" x="284" y="485.6" text-anchor="middle">南阳</text></g><g class="node" data-i="5"><circle class="hit" cx="469.5" cy="629.9" r="30"/><circle class="ring" cx="469.5" cy="629.9" r="13"/><text class="no" x="469.5" y="629.9">6</text><text class="lbl" x="469.5" y="605.9" text-anchor="middle">信阳</text></g>
+          </svg>
+        </div>
+        <div class="detail-panel reveal d2" id="route-detail">
+          <div class="d-tag">
+            <span class="d-city" id="d-city">安阳</span>
+            <span class="chip" id="d-domain" style="color:var(--red);border-color:var(--red)">文化</span>
+            <span class="chip" style="color:var(--jade);border-color:var(--jade)">已辟谣</span>
+          </div>
+          <div>
+            <h4>谣 言</h4>
+            <div class="rumor-q" id="d-rumor">“殷墟出土的甲骨文是近代伪造的”</div>
+          </div>
+          <div>
+            <h4>真 相</h4>
+            <div class="truth-a" id="d-truth">甲骨文经科学考古发掘出土，结合地层学与碳十四测年等多重证据，确认为商代晚期文字，是汉字的源头之一。</div>
+          </div>
+          <div class="point-tip" id="d-tip">辨谣要点：遇到“颠覆常识”的文史说法，先查权威文博、学术机构发布的信息。</div>
+          <div class="legend">
+            <span class="start"><i></i>起点（安阳）</span><span class="stop"><i></i>终点（信阳）</span><span class="muted">案例依据公开辟谣信息改编</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 卡片反转 -->
+  <section class="slide cards-red dark" id="cards">
+    <div class="slide-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">卡片反转式 · 真相揭晓</div>
+        <h2 class="htitle" style="font-size:clamp(24px,3.8vw,40px)">这些“耳熟”的谣言，翻过来看真相</h2>
+        <p class="muted" style="margin-top:6px">点击（或电脑端悬停）卡片，翻转揭晓权威真相与辨谣要点。</p>
+      </div>
+      <div class="cards-grid">
+        <div class="flip reveal d1" role="button" tabindex="0" aria-label="塑料大米谣言，点击查看真相">
+          <div class="flip-inner">
+            <div class="flip-face flip-front"><span class="flip-mark">点击翻转</span><div class="dom">三农 · 辟谣</div><div class="q">“塑料大米流入市场”</div><div class="hint">点击卡片，看真相 →</div></div>
+            <div class="flip-face flip-back"><div class="dom2">真相 · 揭晓</div><div class="a">塑料颗粒成本<b>远高于</b>真米，商家无利可图；多地市场监管部门抽检均<b>未发现“塑料大米”</b>。</div><div class="tip">辨谣：算一算成本账。</div></div>
+          </div>
+        </div>
+        <div class="flip reveal d2" role="button" tabindex="0" aria-label="无籽西瓜谣言，点击查看真相">
+          <div class="flip-inner">
+            <div class="flip-face flip-front"><span class="flip-mark">点击翻转</span><div class="dom">三农 · 辟谣</div><div class="q">“无籽西瓜是转基因/打了避孕药”</div><div class="hint">点击卡片，看真相 →</div></div>
+            <div class="flip-face flip-back"><div class="dom2">真相 · 揭晓</div><div class="a">无籽西瓜是<b>三倍体育种</b>（二倍体 × 四倍体杂交）的结果，天然无籽，<b>与转基因、激素无关</b>。</div><div class="tip">辨谣：了解基本育种原理。</div></div>
+          </div>
+        </div>
+        <div class="flip reveal d3" role="button" tabindex="0" aria-label="食物相克谣言，点击查看真相">
+          <div class="flip-inner">
+            <div class="flip-face flip-front"><span class="flip-mark">点击翻转</span><div class="dom">医疗 · 辟谣</div><div class="q">“柿子和螃蟹同吃会中毒”</div><div class="hint">点击卡片，看真相 →</div></div>
+            <div class="flip-face flip-back"><div class="dom2">真相 · 揭晓</div><div class="a">中国营养学会等多次澄清，“食物相克”<b>缺乏科学依据</b>；个别不适多与食材不新鲜、过敏或过量有关。</div><div class="tip">辨谣：查权威科普，勿信“相克表”。</div></div>
+          </div>
+        </div>
+        <div class="flip reveal d4" role="button" tabindex="0" aria-label="隔夜水致癌谣言，点击查看真相">
+          <div class="flip-inner">
+            <div class="flip-face flip-front"><span class="flip-mark">点击翻转</span><div class="dom">医疗 · 辟谣</div><div class="q">“隔夜水、隔夜茶会致癌”</div><div class="hint">点击卡片，看真相 →</div></div>
+            <div class="flip-face flip-back"><div class="dom2">真相 · 揭晓</div><div class="a">其亚硝酸盐含量<b>远低于国家安全标准</b>，不会致癌；注意加盖防尘、别放太久即可。</div><div class="tip">辨谣：看剂量，不谈剂量说毒性都是耍流氓。</div></div>
+          </div>
+        </div>
+        <div class="flip reveal d5" role="button" tabindex="0" aria-label="高考助学金诈骗，点击查看真相">
+          <div class="flip-inner">
+            <div class="flip-face flip-front"><span class="flip-mark">点击翻转</span><div class="dom">教育 · 辟谣</div><div class="q">“凭高考准考证可领助学金/补贴”</div><div class="hint">点击卡片，看真相 →</div></div>
+            <div class="flip-face flip-back"><div class="dom2">真相 · 揭晓</div><div class="a">典型<b>电信诈骗话术</b>。国家助学政策通过学校与教育部门正规渠道办理，<b>不收取任何费用</b>。</div><div class="tip">辨谣：涉及转账、验证码先向学校求证。</div></div>
+          </div>
+        </div>
+        <div class="flip reveal d5" role="button" tabindex="0" aria-label="转发免门票谣言，点击查看真相">
+          <div class="flip-inner">
+            <div class="flip-face flip-front"><span class="flip-mark">点击翻转</span><div class="dom">文旅 · 辟谣</div><div class="q">“转发朋友圈，景区免费领门票”</div><div class="hint">点击卡片，看真相 →</div></div>
+            <div class="flip-face flip-back"><div class="dom2">真相 · 揭晓</div><div class="a">多为<b>虚假营销或套取个人信息</b>的套路；门票与优惠一律以景区<b>官方公告</b>为准。</div><div class="tip">辨谣：认准“官方”二字。</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 击碎谣言 -->
+  <section class="slide jade light" id="smash">
+    <div class="slide-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">互动式 · 点击互动</div>
+        <h2 class="htitle" style="font-size:clamp(24px,3.8vw,40px)">击碎谣言</h2>
+        <p class="muted" style="margin-top:6px">30 秒内点击击碎向上飘的“谣言气泡”，每击碎一个，都会亮出它为什么是谣言。</p>
+      </div>
+      <div class="game-hud reveal d1">
+        <div class="hud-box"><span class="k">得分</span><span class="v" id="game-score">0</span></div>
+        <div class="hud-box"><span class="k">击碎数</span><span class="v green" id="game-hit">0</span></div>
+        <div class="hud-box"><span class="k">倒计时</span><span class="v" id="game-time">30</span></div>
+      </div>
+      <div id="arena" class="reveal d2">
+        <div class="arena-overlay" id="arena-overlay">
+          <div class="card">
+            <h3>击碎谣言 · 挑战</h3>
+            <p>30 秒内点击谣言气泡，击碎越多越好！<br/>每击碎一个，都会告诉你它为什么是谣言。</p>
+            <button class="btn red" id="arena-start">开始挑战</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 拼图互动 -->
+  <section class="slide light" id="puzzle">
+    <div class="slide-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">互动式 · 拼图互动</div>
+        <h2 class="htitle" style="font-size:clamp(24px,3.8vw,40px)">拼出真相</h2>
+        <p class="muted" style="margin-top:6px">点击与空白块相邻的碎片即可移动，把碎片拼回完整图案，看看里面藏着哪句反谣宣言。</p>
+      </div>
+      <div class="puzzle-body">
+        <div class="puzzle-stage reveal d1">
+          <div id="puzzle-grid" aria-label="3×3滑动拼图"></div>
+          <div class="puzzle-meta">
+            <div class="hud-box"><span class="k">步数</span><span class="v green" id="puzzle-moves">0</span></div>
+            <div class="hud-box"><span class="k">状态</span><span class="v" id="puzzle-state" style="font-size:14px">未完成</span></div>
+          </div>
+        </div>
+        <div class="puzzle-side reveal d2">
+          <h3>原图参考</h3>
+          <div style="display:flex;align-items:center;gap:16px;margin:10px 0;justify-content:center;flex-wrap:wrap">
+            <img id="puzzle-preview" alt="拼图原图预览">
+            <div class="goal" style="text-align:left;flex:1;min-width:180px">目标图案写着——<b style="color:var(--red)">不信谣 · 不传谣 · 不造谣</b>，配以牡丹、太极等河南元素。</div>
+          </div>
+          <ol>
+            <li>点击拼图块 → 滑向空白处</li>
+            <li>恢复成原图顺序即为拼好</li>
+            <li>卡住了随时“重新打乱”</li>
+          </ol>
+          <div class="puzzle-actions">
+            <button class="btn red sm" id="puzzle-shuffle">重新打乱</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 防谣五招 -->
+  <section class="slide dark" id="tips">
+    <div class="slide-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow" style="color:var(--gold-2)">防谣技巧 · 普及</div>
+        <h2 class="htitle" style="font-size:clamp(24px,3.8vw,40px)">防谣五招 · 河南版</h2>
+        <p class="muted" style="margin-top:6px">记住这五招，谣言再“真”也骗不了你。</p>
+      </div>
+      <div class="tips-grid">
+        <div class="tip reveal d1"><div class="t-ico"><svg class="icon" style="width:26px;height:26px"><use href="#s-search"/></svg></div><div class="t-no">第一招</div><h4>查源头</h4><p>信息来自谁？认准权威媒体与政府部门账号，警惕“无来源”“听说的”。</p></div>
+        <div class="tip reveal d2"><div class="t-ico"><svg class="icon" style="width:26px;height:26px"><use href="#s-eye"/></svg></div><div class="t-no">第二招</div><h4>验图文</h4><p>图片视频可被 P、被剪、被 AI 生成；多平台搜一搜，看是否“旧图新用”。</p></div>
+        <div class="tip reveal d3"><div class="t-ico"><svg class="icon" style="width:26px;height:26px"><use href="#s-calc"/></svg></div><div class="t-no">第三招</div><h4>算账本</h4><p>违背常识与成本规律的事，多半是谣言——天上不会掉馅饼。</p></div>
+        <div class="tip reveal d4"><div class="t-ico"><svg class="icon" style="width:26px;height:26px"><use href="#s-shield"/></svg></div><div class="t-no">第四招</div><h4>慢转发</h4><p>让子弹飞一会儿，先求证再分享，别做谣言的“二传手”。</p></div>
+        <div class="tip reveal d5"><div class="t-ico"><svg class="icon" style="width:26px;height:26px"><use href="#s-bell"/></svg></div><div class="t-no">第五招</div><h4>找官方</h4><p>拿不准就找“豫”字号：河南互联网举报中心与 12377，随时为你把关。</p></div>
+      </div>
+      <div class="report-strip reveal d4">
+        <span class="big">发现谣言？</span>
+        <span class="desc" style="color:#f6efe2">拨打 <b>12377</b> 或登录中央网信办举报中心；河南本地可向“河南省互联网违法和不良信息举报中心”（henanjubao.com）举报。</span>
+        <a class="btn sm" href="https://www.12377.cn/" target="_blank" rel="noopener">前往举报</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 结尾 · 承诺 -->
+  <section class="slide festive dark" id="end">
+    <div class="slide-inner end-inner">
+      <div class="eyebrow reveal" style="color:var(--gold-2)">结尾 · 接力</div>
+      <h2 class="end-title reveal d1">与真相同行</h2>
+      <div class="pledge-card reveal d2">
+        <div class="row">
+          <input id="pledge-name" placeholder="请输入你的名字（选填）" maxlength="12" autocomplete="off">
+          <button class="btn red sm" id="pledge-btn">生成承诺书</button>
+        </div>
+        <div class="pledge-text">我承诺：<b>不信谣、不传谣、不造谣</b>，让真相跑在谣言前面，争做<b>中原好网民</b>！</div>
+        <div class="pledge-count" id="pledge-count">已有 0 位网民接力承诺</div>
+      </div>
+      <div class="sources reveal d3">内容说明：本页面为公益辟谣宣传作品。谣言案例依据中国互联网联合辟谣平台、科普中国等权威平台公开辟谣信息改编（地名用于呈现“豫”域特色）；数据引自 CNNIC《第55次中国互联网络发展状况统计报告》、Science (2018)。请以官方最新发布为准。</div>
+      <div class="reveal d4" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <button class="btn" id="restart-btn">再看一遍</button>
+        <button class="btn ghost" id="share-btn"><svg class="icon" style="width:16px;height:16px"><use href="#s-share"/></svg>分享给朋友</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== 承诺书弹窗 ===== -->
+<div class="modal" id="cert-modal" role="dialog" aria-modal="true" aria-label="反谣承诺书">
+  <div class="modal-box">
+    <button class="modal-close" id="cert-close" aria-label="关闭">×</button>
+    <div class="cert">
+      <span class="c-seal seal" style="font-size:14px">辟谣先锋</span>
+      <div class="c-title">反 谣 承 诺 书</div>
+      <div class="c-name" id="cert-name">中原好网民</div>
+      <div class="c-text">谨以诚信立誓：<br/><b style="color:var(--red)">不信谣 · 不传谣 · 不造谣</b><br/>让真相跑在谣言前面</div>
+      <div class="c-no" id="cert-no">编号：YJ-000000 · 河南反谣公益</div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+      <button class="btn red sm" id="cert-copy">复制承诺语</button>
+      <button class="btn sm" id="cert-share" style="background:#f1e8d6;color:var(--ink);box-shadow:none">分享承诺书</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 提示 / 横屏 ===== -->
+<div class="toast-wrap" id="toast-wrap"></div>
+<div class="landscape" id="landscape">
+  <div>
+    <svg class="ico"><use href="#s-reset"/></svg>
+    <h3 style="font-family:var(--font-kai);font-size:22px;margin-bottom:8px">竖屏体验更佳</h3>
+    <p style="font-size:14px;opacity:.85">请将手机旋转为竖屏浏览</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+(function(){
+"use strict";
+function $(s,c){return (c||document).querySelector(s);}
+function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));}
+
+/* ---------- 提示条 ---------- */
+function toast(msg, good){
+  var wrap = $('#toast-wrap'); if(!wrap) return;
+  var t = document.createElement('div');
+  t.className = 'toast' + (good ? ' good' : '');
+  t.innerHTML = msg;
+  wrap.appendChild(t);
+  setTimeout(function(){ t.style.transition='opacity .4s, transform .4s'; t.style.opacity='0'; t.style.transform='translateY(8px)'; }, 2200);
+  setTimeout(function(){ if(t.parentNode) t.parentNode.removeChild(t); }, 2750);
+}
+
+/* ---------- 设备识别与自适应 ---------- */
+function detectDevice(){
+  var ua = navigator.userAgent || '';
+  var coarse = (window.matchMedia && matchMedia('(pointer: coarse)').matches);
+  var w = Math.min(screen.width || innerWidth, innerWidth || 0);
+  var tabletUA = /ipad|tablet|playbook|silk/i.test(ua) || (/android/i.test(ua) && !/mobile/i.test(ua));
+  var d;
+  if (tabletUA || (coarse && w >= 768)) d = 'tablet';
+  else if (coarse || w < 820 || /mobi|iphone|ipod|android/i.test(ua)) d = 'mobile';
+  else d = 'desktop';
+  document.documentElement.setAttribute('data-device', d);
+  return d;
+}
+
+/* ---------- 滑屏引擎 ---------- */
+var slides = $$('.slide');
+var deck = $('#deck');
+var total = slides.length, cur = 0, wheelAcc = 0, lastWheel = 0;
+
+function go(i, instant){
+  i = Math.max(0, Math.min(total-1, i));
+  cur = i;
+  document.body.style.setProperty('--i', i);
+  if(deck){
+    deck.style.transition = instant ? 'none' : '';
+    deck.style.transform = 'translate3d(0,-' + (i*100) + '%,0)';
+  }
+  slides.forEach(function(s,k){ s.classList.toggle('active', k===i); });
+  $$('#nav-dots button').forEach(function(b,k){ b.classList.toggle('on', k===i); });
+  var p = $('#progress'); if(p) p.style.width = ((i+1)/total*100) + '%';
+  var pc = $('#pageno-cur'); if(pc) pc.textContent = (i<9?'0':'') + (i+1);
+  if(slides[i].id !== 'smash') pauseGame();
+  try{ if(location.hash !== '#'+slides[i].id) history.replaceState(null,'','#'+slides[i].id); }catch(e){}
+}
+function next(){ go(cur+1); }
+function prev(){ go(cur-1); }
+
+window.addEventListener('wheel', function(e){
+  if(e.ctrlKey) return;
+  var now = Date.now();
+  wheelAcc += e.deltaY;
+  if(Math.abs(wheelAcc) > 60 && now - lastWheel > 700){
+    lastWheel = now;
+    if(wheelAcc > 0) next(); else prev();
+    wheelAcc = 0;
+  }
+}, {passive:true});
+
+window.addEventListener('keydown', function(e){
+  if(e.target && (e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA')) return;
+  if(e.key==='ArrowDown' || e.key==='PageDown' || e.key===' '){ next(); e.preventDefault(); }
+  else if(e.key==='ArrowUp' || e.key==='PageUp'){ prev(); e.preventDefault(); }
+  else if(e.key==='Home'){ go(0); }
+  else if(e.key==='End'){ go(total-1); }
+});
+
+var tsY = null, tsT = 0;
+document.addEventListener('touchstart', function(e){
+  var inner = e.target.closest ? e.target.closest('.slide-inner') : null;
+  if(inner && inner.scrollTop > 0) return;
+  var t = e.touches[0]; tsY = t.clientY; tsT = Date.now();
+}, {passive:true});
+document.addEventListener('touchend', function(e){
+  if(tsY === null) return;
+  var t = e.changedTouches[0];
+  var dy = t.clientY - tsY, dt = Date.now() - tsT;
+  if(Math.abs(dy) > 55 && dt < 600){ if(dy < 0) next(); else prev(); }
+  tsY = null;
+}, {passive:true});
+
+window.addEventListener('hashchange', function(){
+  var id = location.hash.slice(1);
+  var idx = slides.findIndex(function(s){ return s.id === id; });
+  if(idx >= 0 && idx !== cur) go(idx, true);
+});
+
+function buildNav(){
+  var nav = $('#nav-dots'); if(!nav) return;
+  slides.forEach(function(s,i){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', '第' + (i+1) + '页');
+    b.addEventListener('click', function(){ go(i); });
+    nav.appendChild(b);
+  });
+  var pt = $('#pageno-total'); if(pt) pt.textContent = (total<10?'0':'') + total;
+}
+$$('[data-goto]').forEach(function(b){
+  b.addEventListener('click', function(){ go(+b.getAttribute('data-goto')); });
+});
+
+/* ---------- 豫地路线 ---------- */
+var ROUTE = [
+  {city:'安阳', domain:'文化', rumor:'“殷墟出土的甲骨文是近代伪造的”', truth:'甲骨文经科学考古发掘出土，结合地层学与碳十四测年等多重证据，确认为商代晚期文字，是汉字的源头之一。', tip:'遇到“颠覆常识”的文史说法，先查权威文博、学术机构发布的信息。'},
+  {city:'焦作', domain:'三农', rumor:'“温县铁棍山药是转基因 / 打了激素”', truth:'无科学依据。山药种植采用正常农艺技术，属传统农产品，相关传言当地农业部门已多次澄清。', tip:'农产品质量以农业、市场监管部门抽检结果为准。'},
+  {city:'洛阳', domain:'文旅', rumor:'“转发朋友圈即可免费领牡丹文化节门票”', truth:'景区未开展此类活动，是典型的诱导分享、套取个人信息的营销套路。', tip:'门票与优惠一律以景区官方账号、官方渠道公告为准。'},
+  {city:'郑州', domain:'教育', rumor:'“凭高考准考证可领 XX 助学金 / 补贴”', truth:'典型电信诈骗话术。国家助学政策通过学校与教育部门正规渠道办理，不收取任何费用。', tip:'涉及转账、验证码、银行卡号的“补贴”，先向学校或官方求证。'},
+  {city:'南阳', domain:'医疗', rumor:'“猪肉里的‘钩虫’煮不熟、杀不死”', truth:'所谓“钩虫”多为血管、筋膜等正常组织。经正规检疫合格的猪肉可放心食用。', tip:'肉品认准检疫合格证明，从正规渠道购买并彻底煮熟。'},
+  {city:'信阳', domain:'三农', rumor:'“信阳毛尖打药超标，喝了致癌”', truth:'以偏概全。茶叶种植用药有严格规范，正规渠道销售、检测合格的产品可放心饮用。', tip:'选购带食品生产许可与质检信息的正规产品。'}
+];
+function setRoute(i){
+  var d = ROUTE[i];
+  $('#d-city').textContent = d.city;
+  $('#d-domain').textContent = d.domain;
+  $('#d-rumor').textContent = d.rumor;
+  $('#d-truth').textContent = d.truth;
+  $('#d-tip').textContent = '辨谣要点：' + d.tip;
+  $$('.node[data-i]').forEach(function(n,k){ n.classList.toggle('on', k===i); });
+}
+$$('.node[data-i]').forEach(function(n){
+  n.addEventListener('click', function(){ setRoute(+n.getAttribute('data-i')); });
+});
+
+/* ---------- 卡片翻转 ---------- */
+$$('.flip').forEach(function(c){
+  var toggle = function(){ c.classList.toggle('flipped'); };
+  c.addEventListener('click', toggle);
+  c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
+});
+
+/* ---------- 击碎谣言游戏 ---------- */
+var RUMORS = [
+  {r:'塑料大米流入市场', t:'成本远高于真米，多地抽检未发现'},
+  {r:'隔夜水隔夜茶致癌', t:'亚硝酸盐远低于国标，不会致癌'},
+  {r:'转发朋友圈免门票', t:'多为虚假营销，以官方公告为准'},
+  {r:'凭准考证领助学金', t:'典型诈骗话术，走学校正规渠道'},
+  {r:'无籽西瓜是转基因', t:'三倍体育种，与转基因无关'},
+  {r:'扫码领红包领补贴', t:'警惕诱导链接，认准官方渠道'},
+  {r:'骨头汤能补钙', t:'汤里钙极少，补钙喝奶吃豆制品'},
+  {r:'WiFi 辐射致癌', t:'非电离辐射，无致癌证据'},
+  {r:'微波炉加热致癌', t:'不会让食物致癌，可放心使用'},
+  {r:'柿子和螃蟹同吃中毒', t:'“食物相克”缺乏科学依据'}
+];
+var arena = $('#arena'), overlay = $('#arena-overlay');
+var game = { running:false, score:0, hit:0, remain:30000, end:0, spawn:0, raf:0 };
+
+function updateHud(){
+  $('#game-score').textContent = game.score;
+  $('#game-hit').textContent = game.hit;
+}
+function spawnBubble(){
+  if(!game.running) return;
+  var d = RUMORS[Math.floor(Math.random()*RUMORS.length)];
+  var b = document.createElement('div');
+  b.className = 'bubble';
+  b.textContent = d.r;
+  b.setAttribute('data-t', d.t);
+  var maxLeft = Math.max(10, arena.clientWidth - 190);
+  b.style.left = (10 + Math.random()*maxLeft) + 'px';
+  b.style.animationDuration = (4 + Math.random()*2.6) + 's';
+  b.addEventListener('click', function(){
+    if(b.classList.contains('burst')) return;
+    b.classList.add('burst');
+    game.score += 10; game.hit += 1; updateHud();
+    toast('<b>✓ 已击碎</b>　真相：' + b.getAttribute('data-t'), true);
+    setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); }, 340);
+  });
+  b.addEventListener('animationend', function(){ if(!b.classList.contains('burst') && b.parentNode) b.parentNode.removeChild(b); });
+  arena.appendChild(b);
+  game.spawn = setTimeout(spawnBubble, 900 + Math.random()*700);
+}
+function tick(){
+  if(!game.running) return;
+  var left = Math.max(0, Math.round((game.end - Date.now())/1000));
+  $('#game-time').textContent = left;
+  if(game.end - Date.now() <= 0){ game.running = false; clearTimeout(game.spawn); endGame(); return; }
+  game.raf = requestAnimationFrame(tick);
+}
+function startGame(){
+  game.score = 0; game.hit = 0; game.remain = 30000; game.running = true;
+  updateHud(); $('#game-time').textContent = '30';
+  $$('#arena .bubble').forEach(function(b){ b.remove(); });
+  if(overlay) overlay.style.display = 'none';
+  game.end = Date.now() + game.remain;
+  spawnBubble(); tick();
+}
+function endGame(){
+  game.remain = 0;
+  if(!overlay) return;
+  overlay.style.display = 'grid';
+  var msg = '本次击碎 <b style="color:var(--red)">' + game.hit + '</b> 条谣言，得分 ' + game.score + ' 分！';
+  if(game.hit >= 20) msg += '<br/>🎉 反谣高手，中原好网民就是你！';
+  else if(game.hit >= 10) msg += '<br/>👍 不错！继续识谣辨谣。';
+  else msg += '<br/>💪 多来几轮，谣言见你绕道走。';
+  overlay.innerHTML = '<div class="card"><h3>挑战结束</h3><div class="score-big">' + game.score + '</div><p>' + msg + '</p><button class="btn red" id="arena-again" style="margin-top:10px">再来一局</button></div>';
+  $('#arena-again').addEventListener('click', startGame);
+}
+function pauseGame(){
+  if(!game.running) return;
+  game.running = false;
+  game.remain = Math.max(0, game.end - Date.now());
+  clearTimeout(game.spawn); cancelAnimationFrame(game.raf);
+  if(overlay){
+    overlay.style.display = 'grid';
+    overlay.innerHTML = '<div class="card"><h3>挑战暂停</h3><p>返回本页可继续挑战。</p><button class="btn red" id="arena-resume" style="margin-top:10px">继续挑战</button></div>';
+    $('#arena-resume').addEventListener('click', resumeGame);
+  }
+}
+function resumeGame(){
+  game.end = Date.now() + game.remain; game.running = true;
+  if(overlay) overlay.style.display = 'none';
+  spawnBubble(); tick();
+}
+$('#arena-start').addEventListener('click', startGame);
+
+/* ---------- 拼图互动 ---------- */
+var grid = [], blankIdx = 8, moves = 0, solved = false, tileImg = null;
+var puzzleGrid = $('#puzzle-grid'), previewImg = $('#puzzle-preview');
+
+function drawPuzzleImage(){
+  var s = 600;
+  var c = document.createElement('canvas'); c.width = s; c.height = s;
+  var x = c.getContext('2d');
+  var g = x.createLinearGradient(0,0,0,s); g.addColorStop(0,'#FFFDF6'); g.addColorStop(.58,'#FAEED7'); g.addColorStop(1,'#EBD5B2');
+  x.fillStyle = g; x.fillRect(0,0,s,s);
+  var i;
+  for(i=0;i<220;i++){
+    x.save(); x.globalAlpha = .035 + Math.random()*.045; x.fillStyle = Math.random()>.5 ? '#B5272F' : '#C8953B';
+    x.beginPath(); x.arc(Math.random()*s, Math.random()*s, .8 + Math.random()*1.5, 0, Math.PI*2); x.fill(); x.restore();
+  }
+  x.save();
+  x.strokeStyle = '#C8953B'; x.lineWidth = 5; x.strokeRect(18,18,s-36,s-36);
+  x.strokeStyle = 'rgba(200,149,59,.38)'; x.lineWidth = 1.5; x.strokeRect(30,30,s-60,s-60);
+  x.restore();
+  x.save(); x.translate(118,116); x.globalAlpha=.14; x.fillStyle='#2F7D6D';
+  x.beginPath(); x.arc(0,0,50,0,Math.PI*2); x.fill();
+  x.fillStyle='#FBF4E4'; x.beginPath(); x.arc(0,0,50,0,Math.PI); x.fill();
+  x.fillStyle='#2F7D6D'; x.beginPath(); x.arc(0,-25,25,0,Math.PI*2); x.fill();
+  x.fillStyle='#FBF4E4'; x.beginPath(); x.arc(0,25,25,0,Math.PI*2); x.fill();
+  x.fillStyle='#2F7D6D'; x.beginPath(); x.arc(0,-25,7,0,Math.PI*2); x.fill();
+  x.fillStyle='#FBF4E4'; x.beginPath(); x.arc(0,25,7,0,Math.PI*2); x.fill();
+  x.restore();
+  x.save(); x.translate(s/2, 196);
+  x.shadowColor='rgba(181,39,47,.22)'; x.shadowBlur=20;
+  for(i=0;i<5;i++){ x.save(); x.rotate(i*72*Math.PI/180); x.fillStyle='#E3B04B'; x.beginPath(); x.ellipse(0,-72,44,66,0,0,Math.PI*2); x.fill(); x.restore(); }
+  x.shadowColor='rgba(181,39,47,.28)'; x.shadowBlur=16;
+  for(i=0;i<5;i++){ x.save(); x.rotate((36+i*72)*Math.PI/180); x.fillStyle='#B5272F'; x.beginPath(); x.ellipse(0,-48,30,46,0,0,Math.PI*2); x.fill(); x.restore(); }
+  x.fillStyle='#F2D08A'; x.beginPath(); x.arc(0,0,24,0,Math.PI*2); x.fill();
+  x.restore();
+  x.save(); x.translate(s/2, 246); x.globalAlpha=.35; x.fillStyle='#2F7D6D';
+  x.beginPath(); x.ellipse(-80,42,52,18,-.25,0,Math.PI*2); x.fill();
+  x.beginPath(); x.ellipse(80,42,52,18,.25,0,Math.PI*2); x.fill();
+  x.restore();
+  x.fillStyle = '#8E1F28'; x.textAlign='center'; x.textBaseline='middle';
+  x.font = 'bold 52px "Microsoft YaHei","PingFang SC",sans-serif';
+  x.fillText('不信谣', s/2, 402); x.fillText('不传谣', s/2, 468); x.fillText('不造谣', s/2, 534);
+  x.font = 'bold 29px "KaiTi","STKaiti",serif'; x.fillStyle='#B67A2D'; x.letterSpacing='6px';
+  x.fillText('豫 见 真 相 · 河 南 反 谣', s/2, 568);
+  return c;
+}
+function renderPuzzle(){
+  if(!tileImg) tileImg = drawPuzzleImage();
+  if(previewImg && !previewImg.src) previewImg.src = tileImg.toDataURL();
+  var url = tileImg.toDataURL();
+  puzzleGrid.innerHTML = '';
+  var i;
+  for(i=0;i<9;i++){
+    var t = document.createElement('div');
+    t.className = 'tile';
+    if(i === blankIdx){ t.classList.add('blank'); }
+    else{
+      var v = grid[i], row = Math.floor(v/3), col = v%3;
+      t.style.backgroundImage = 'url(' + url + ')';
+      t.style.backgroundPosition = (col*50) + '% ' + (row*50) + '%';
+      (function(idx){ t.addEventListener('click', function(){ moveTile(idx); }); })(i);
+    }
+    puzzleGrid.appendChild(t);
+  }
+  $('#puzzle-moves').textContent = moves;
+  $('#puzzle-state').textContent = solved ? '已完成' : '未完成';
+  $('#puzzle-state').style.color = solved ? '#2F7D6D' : '';
+}
+function moveTile(idx){
+  if(solved) return;
+  var r = Math.floor(idx/3), c = idx%3;
+  var br = Math.floor(blankIdx/3), bc = blankIdx%3;
+  if((Math.abs(r-br) + Math.abs(c-bc)) !== 1) return;
+  grid[blankIdx] = grid[idx]; grid[idx] = 8; blankIdx = idx; moves++;
+  renderPuzzle();
+  if(checkWin()){
+    solved = true;
+    $('#puzzle-state').textContent = '已完成';
+    $('#puzzle-state').style.color = '#2F7D6D';
+    toast('<b>🎉 拼好了！</b>　不信谣 · 不传谣 · 不造谣', true);
+  }
+}
+function checkWin(){ for(var i=0;i<9;i++){ if(grid[i] !== i) return false; } return true; }
+function shufflePuzzle(){
+  grid = [0,1,2,3,4,5,6,7,8]; blankIdx = 8; solved = false; moves = 0;
+  var prev = -1, k;
+  for(k=0;k<300;k++){
+    var r = Math.floor(blankIdx/3), c = blankIdx%3, opts = [];
+    if(r>0) opts.push(blankIdx-3); if(r<2) opts.push(blankIdx+3);
+    if(c>0) opts.push(blankIdx-1); if(c<2) opts.push(blankIdx+1);
+    opts = opts.filter(function(o){ return o !== prev; });
+    var pick = opts[Math.floor(Math.random()*opts.length)];
+    grid[blankIdx] = grid[pick]; grid[pick] = 8; prev = blankIdx; blankIdx = pick;
+  }
+  renderPuzzle();
+}
+$('#puzzle-shuffle').addEventListener('click', shufflePuzzle);
+
+/* ---------- 承诺书 ---------- */
+var pledgeCount = 0;
+try{ pledgeCount = parseInt(localStorage.getItem('yjzx_pledge') || '0', 10) || 0; }catch(e){}
+function renderCount(){ $('#pledge-count').textContent = '已有 ' + pledgeCount + ' 位网民接力承诺'; }
+renderCount();
+
+$('#pledge-btn').addEventListener('click', function(){
+  var name = ($('#pledge-name').value || '').trim() || '中原好网民';
+  $('#cert-name').textContent = name;
+  var no = 'YJ-' + (100000 + Math.floor(Math.random()*900000));
+  $('#cert-no').textContent = '编号：' + no + ' · 河南反谣公益';
+  var flagged = false;
+  try{ flagged = sessionStorage.getItem('yjzx_pledged') === '1'; }catch(e){}
+  if(!flagged){
+    pledgeCount++;
+    try{ localStorage.setItem('yjzx_pledge', pledgeCount); sessionStorage.setItem('yjzx_pledged','1'); }catch(e){}
+    renderCount();
+  }
+  $('#cert-modal').classList.add('show');
+});
+function closeCert(){ $('#cert-modal').classList.remove('show'); }
+$('#cert-close').addEventListener('click', closeCert);
+$('#cert-modal').addEventListener('click', function(e){ if(e.target === this) closeCert(); });
+
+function fallbackCopy(txt, ok){
+  var ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast(ok || '已复制', true); }
+  catch(e){ toast('复制失败，请手动复制'); }
+  document.body.removeChild(ta);
+}
+$('#cert-copy').addEventListener('click', function(){
+  var txt = '我承诺：不信谣、不传谣、不造谣，让真相跑在谣言前面，争做中原好网民！——' + $('#cert-name').textContent + '（豫见真相 · 河南反谣公益）';
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ toast('已复制承诺语', true); }, function(){ fallbackCopy(txt); }); }
+  else fallbackCopy(txt);
+});
+
+/* ---------- 分享 ---------- */
+function sharePage(){
+  var data = { title:'豫见真相 · 反谣同行（河南辟谣公益H5）', text:'不信谣、不传谣、不造谣，让真相跑在谣言前面！', url: location.href };
+  if(navigator.share){ navigator.share(data).catch(function(){}); }
+  else if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(location.href).then(function(){ toast('链接已复制，快去分享吧', true); }, function(){ fallbackCopy(location.href); }); }
+  else fallbackCopy(location.href);
+}
+$('#share-btn').addEventListener('click', sharePage);
+$('#cert-share').addEventListener('click', sharePage);
+$('#restart-btn').addEventListener('click', function(){ go(0); });
+
+/* ---------- 横屏提示（仅手机） ---------- */
+function checkOrientation(){
+  var land = $('#landscape'); if(!land) return;
+  var isMobile = document.documentElement.getAttribute('data-device') === 'mobile';
+  var landscape = (window.matchMedia && matchMedia('(orientation: landscape)').matches) && innerWidth < 820;
+  land.classList.toggle('show', isMobile && landscape);
+}
+if(window.matchMedia){
+  var mq = matchMedia('(orientation: landscape)');
+  if(mq.addEventListener) mq.addEventListener('change', checkOrientation);
+  else if(mq.addListener) mq.addListener(checkOrientation);
+}
+window.addEventListener('resize', checkOrientation);
+
+/* ---------- 初始化 ---------- */
+function init(){
+  detectDevice();
+  buildNav();
+  setRoute(0);
+  shufflePuzzle();
+  checkOrientation();
+  var id = location.hash.slice(1);
+  var idx = slides.findIndex(function(s){ return s.id === id; });
+  go(idx >= 0 ? idx : 0, true);
+}
+init();
+})();
+</script>
+</body>
+</html>
